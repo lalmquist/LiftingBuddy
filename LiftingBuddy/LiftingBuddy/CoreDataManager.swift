@@ -30,7 +30,19 @@ struct CoreDataManager {
             let workouts = try context.fetch(fetchRequest)
             return workouts
         } catch let fetchErr {
-            print("Failed to fetch companies:", fetchErr)
+            print("Failed to fetch workouts:", fetchErr)
+            return []
+        }
+    }
+    func fetchExercises() -> [Exercise] {
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Exercise>(entityName: "Exercise")
+        do {
+            let exercises = try context.fetch(fetchRequest)
+            return exercises
+        } catch let fetchErr {
+            print("Failed to fetch exercises:", fetchErr)
             return []
         }
     }

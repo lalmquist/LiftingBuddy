@@ -32,13 +32,12 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
 //        guard let section = employeeTypes.index(of: employee.type!) else { return }
         
         // what is my row?
-        let section = 0
+
+        let row = allExercises.count
         
-        let row = allExercises[section].count
+        let insertionIndexPath = IndexPath(row: row, section: 0)
         
-        let insertionIndexPath = IndexPath(row: row, section: section)
-        
-        allExercises[section].append(exercise)
+        allExercises.append(exercise)
         
         tableView.insertRows(at: [insertionIndexPath], with: .middle)
     }
@@ -63,37 +62,22 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         return 50
     }
     
-    var allExercises = [[Exercise]]()
-    
-//    var employeeTypes = [
-//        EmployeeType.Intern.rawValue,
-//        EmployeeType.Executive.rawValue,
-//        EmployeeType.SeniorManagement.rawValue,
-//        EmployeeType.Staff.rawValue,
-//    ]
+    var allExercises = [Exercise]()
     
     private func fetchExercises() {
         guard let workoutExercises = workout?.exercise?.allObjects as? [Exercise] else { return }
-        
         allExercises = []
+        allExercises = workoutExercises
         // let's use my array and loop to filter instead
-        
-        allExercises.append(workoutExercises)
-        
+
+//        allExercises.append(workoutExercises)
+
 //        employeeTypes.forEach { (employeeType) in
-        
+
             // somehow construct my allEmployees array
 //            allExercises.append(workoutExercises)
 //        }
-        
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return allExercises.count
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allExercises[section].count
+
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,7 +87,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         print(indexPath.row)
         print(allExercises)
         
-        let exercise = allExercises[indexPath.section][indexPath.row]
+        let exercise = allExercises[indexPath.row]
         
         cell.textLabel?.text = exercise.name
         
@@ -126,10 +110,13 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let exercise = allExercises[indexPath.section][indexPath.row]
+        let exercise = allExercises[indexPath.row]
         let setController = SetController()
         setController.exercise = exercise
         navigationController?.pushViewController(setController, animated: true)
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allExercises.count
     }
     
     let cellId = "cellllllllllllId"
@@ -138,6 +125,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         super.viewDidLoad()
         
         fetchExercises()
+//        self.allExercises = CoreDataManager.shared.fetchExercises()
         
         tableView.backgroundColor = UIColor.darkBlue
         
@@ -157,6 +145,32 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         present(navController, animated: true, completion: nil)
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let exercise = self.allExercises[indexPath.row]
+            print("Attempting to delete exercise:", exercise.name ?? "")
+            
+            print(indexPath.row)
+            self.allExercises.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+//            self.tableView.deleteSections([indexPath.section], with: .automatic)
+            
+            // delete the company from Core Data
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            
+            context.delete(exercise)
+            
+            do {
+                try context.save()
+            } catch let saveErr {
+                print("Failed to delete exercise:", saveErr)
+            }
+        }
+        deleteAction.backgroundColor = UIColor.lightRed
+    
+        return [deleteAction]
+    }
 }
 
 
