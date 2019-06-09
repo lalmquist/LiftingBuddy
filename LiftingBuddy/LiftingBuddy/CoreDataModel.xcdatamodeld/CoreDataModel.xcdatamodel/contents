@@ -16,8 +16,8 @@
         <relationship name="exercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Exercise" inverseName="workout" inverseEntity="Exercise" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Exercise" positionX="93" positionY="-257.00390625" width="128" height="90"/>
+        <element name="Set" positionX="178" positionY="-96.00390625" width="128" height="90"/>
         <element name="Workout" positionX="-97" positionY="-270.0078125" width="128" height="88"/>
-        <element name="Exercise" positionX="93" positionY="-257.00390625" width="128" height="88"/>
-        <element name="Set" positionX="178" positionY="-96.00390625" width="128" height="88"/>
     </elements>
 </model>
