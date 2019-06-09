@@ -17,14 +17,13 @@ class SetController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchSets()
         
         tableView.backgroundColor = UIColor.darkBlue
         
         setupPlusButtonInNavBar(selector: #selector(createNewSet))
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-        
-        fetchSets()
         
         setupUI()
         
@@ -117,7 +116,34 @@ class SetController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allSets[section].count
     }
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let set = self.allSets[indexPath.section][indexPath.row]
+            print("Attempting to delete set:")
+            
+            print(indexPath.row)
+            self.allSets[indexPath.section].remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            //            self.tableView.deleteSections([indexPath.section], with: .automatic)
+            
+            // delete the set from Core Data
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            
+            context.delete(set)
+            
+            do {
+                try context.save()
+            } catch let saveErr {
+                print("Failed to delete exercise:", saveErr)
+            }
+        }
+        deleteAction.backgroundColor = UIColor.lightRed
+        
+        return [deleteAction]
+    }
     
+
     func didAddSet(set: Set) {
         let section = 0
         allSets[section].append(set)
