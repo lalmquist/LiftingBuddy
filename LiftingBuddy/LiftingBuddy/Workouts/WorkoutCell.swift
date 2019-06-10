@@ -31,7 +31,7 @@ class WorkoutCell: UITableViewCell {
             }
         }
     }
-    
+    //a
     // you cannot declare another image view using "imageView"
 //    let companyImageView: UIImageView = {
 //        let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))

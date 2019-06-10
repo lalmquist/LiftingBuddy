@@ -4,14 +4,14 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//
+//a
 
 import UIKit
 import CoreData
 
 class WorkoutsController: UITableViewController {
     
-    var workouts = [Workout]() // empty array
+    var workouts = [Workout]()
     
     @objc private func doWork() {
         print("Trying to do work...")

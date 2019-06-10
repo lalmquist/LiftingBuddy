@@ -4,7 +4,7 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//
+//a
 
 import UIKit
 import CoreData
@@ -40,8 +40,9 @@ class SetController: UITableViewController {
         let set = allSets[0][indexPath.row]
         
         set.exercise = exercise
+        let volume = set.reps * set.weight
         
-        let label = "reps: \(set.reps) weight: \(set.weight)"
+        let label = "reps: \(set.reps) weight: \(set.weight) --- Total: \(volume) lbs"
         cell.textLabel?.text = label
         cell.backgroundColor = UIColor.tealColor
         cell.textLabel?.textColor = .white
@@ -116,6 +117,33 @@ class SetController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allSets[section].count
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let set = self.allSets[indexPath.section][indexPath.row]
+            print("Attempting to delete set:")
+            
+            print(indexPath.row)
+            self.allSets[indexPath.section].remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            //            self.tableView.deleteSections([indexPath.section], with: .automatic)
+            
+            // delete the set from Core Data
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            
+            context.delete(set)
+            
+            do {
+                try context.save()
+            } catch let saveErr {
+                print("Failed to delete exercise:", saveErr)
+            }
+        }
+        deleteAction.backgroundColor = UIColor.lightRed
+        
+        return [deleteAction]
     }
     
     func didAddSet(set: Set) {
