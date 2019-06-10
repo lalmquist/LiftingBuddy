@@ -18,6 +18,10 @@ class SetController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        weightTextField.keyboardType = UIKeyboardType.numberPad
+        
+        repsTextField.keyboardType = UIKeyboardType.numberPad
+        
         tableView.backgroundColor = UIColor.darkBlue
         
         setupPlusButtonInNavBar(selector: #selector(createNewSet))
@@ -42,7 +46,7 @@ class SetController: UITableViewController {
         set.exercise = exercise
         let volume = set.reps * set.weight
         
-        let label = "reps: \(set.reps) weight: \(set.weight) --- Total: \(volume) lbs"
+        let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
         cell.textLabel?.text = label
         cell.backgroundColor = UIColor.tealColor
         cell.textLabel?.textColor = .white
@@ -70,10 +74,10 @@ class SetController: UITableViewController {
 //
 //        let set = NSEntityDescription.insertNewObject(forEntityName: "Set", into: context)
         
-        let intReps = Int16(nameTextField.text ?? "-99")
-        let intWeight = Int16(nameTextField.text ?? "-99")
+        let intReps = Int16(repsTextField.text ?? "0")
+        let intWeight = Int16(weightTextField.text ?? "0")
         
-        let set = CoreDataManager.shared.createSet(setReps: intReps ?? -99, setWeight: intWeight ?? -99)
+        let set = CoreDataManager.shared.createSet(setReps: intReps ?? 0, setWeight: intWeight ?? 0)
         
 //        set.setValue(Int16(nameTextField.text ?? "-99"), forKey: "reps")
 //        set.setValue(Int16(nameTextField.text ?? "-99"), forKey: "weight")
@@ -102,17 +106,9 @@ class SetController: UITableViewController {
         return label
     }
     
-  
-    let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.textColor = .white
-        textField.placeholder = "5"
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-        }()
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 100
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -154,12 +150,52 @@ class SetController: UITableViewController {
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
+    let weightTextField: UITextField = {
+        let textField = UITextField()
+        textField.textColor = .black
+        textField.placeholder = "Weight"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    let repsTextField: UITextField = {
+        let textField = UITextField()
+        textField.textColor = .black
+        textField.placeholder = "Reps"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    let totalVolume: UILabel = {
+        let displayString = UILabel()
+        displayString.textColor = .black
+        let volume = 50 * 2
+        displayString.text = "\(volume)"
+        displayString.translatesAutoresizingMaskIntoConstraints = false
+        return displayString
+    }()
+    
     func setupUI() {
-        view.addSubview(nameTextField)
-        nameTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        nameTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        nameTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        nameTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.addSubview(weightTextField)
+        weightTextField.backgroundColor = .white
+        weightTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        weightTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        weightTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        weightTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        view.addSubview(repsTextField)
+        repsTextField.backgroundColor = .white
+        repsTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        repsTextField.leftAnchor.constraint(equalTo: weightTextField.rightAnchor, constant: 30).isActive = true
+        repsTextField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        repsTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        view.addSubview(totalVolume)
+        totalVolume.backgroundColor = .white
+        totalVolume.topAnchor.constraint(equalTo: weightTextField.bottomAnchor).isActive = true
+        totalVolume.leftAnchor.constraint(equalTo: weightTextField.leftAnchor).isActive = true
+        totalVolume.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
 }
