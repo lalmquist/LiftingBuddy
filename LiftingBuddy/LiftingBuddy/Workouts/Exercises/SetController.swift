@@ -142,6 +142,16 @@ class SetController: UITableViewController {
         return [deleteAction]
     }
     
+    func getVolume() -> Int16 {
+        var volArray = [Int16]()
+        allSets.forEach { set in
+            let vol = (set[0].reps * set[0].weight)
+            volArray.append(vol)
+        }
+        let sum = volArray.reduce(0, +)
+        return sum
+    }
+
     func didAddSet(set: Set) {
         let section = 0
         allSets[section].append(set)
@@ -166,10 +176,11 @@ class SetController: UITableViewController {
         return textField
     }()
     
+    lazy var volume = getVolume()
+    
     let totalVolume: UILabel = {
         let displayString = UILabel()
         displayString.textColor = .black
-        let volume = 50 * 2
         displayString.text = "\(volume)"
         displayString.translatesAutoresizingMaskIntoConstraints = false
         return displayString
