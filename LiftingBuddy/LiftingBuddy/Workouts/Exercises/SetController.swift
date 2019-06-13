@@ -15,6 +15,8 @@ class SetController: UITableViewController {
        
     var allSets = [[Set]]()
     
+    var volume: Int16?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,9 +39,9 @@ class SetController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        print(allSets)
-        print(indexPath.section)
-        print(indexPath.row)
+//        print(allSets)
+//        print(indexPath.section)
+//        print(indexPath.row)
         
         let set = allSets[0][indexPath.row]
         
@@ -89,6 +91,7 @@ class SetController: UITableViewController {
         } else {
             didAddSet(set: set.0!)
         }
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -130,7 +133,7 @@ class SetController: UITableViewController {
             let context = CoreDataManager.shared.persistentContainer.viewContext
             
             context.delete(set)
-            
+            self.setupUI()
             do {
                 try context.save()
             } catch let saveErr {
@@ -142,16 +145,6 @@ class SetController: UITableViewController {
         return [deleteAction]
     }
     
-    func getVolume() -> Int16 {
-        var volArray = [Int16]()
-        allSets.forEach { set in
-            let vol = (set[0].reps * set[0].weight)
-            volArray.append(vol)
-        }
-        let sum = volArray.reduce(0, +)
-        return sum
-    }
-
     func didAddSet(set: Set) {
         let section = 0
         allSets[section].append(set)
@@ -176,12 +169,24 @@ class SetController: UITableViewController {
         return textField
     }()
     
-    lazy var volume = getVolume()
+    var sum : Int16?
+    
+    func getVolume() -> Int16 {
+        var volArray = [Int16]()
+        print(allSets[0])
+        for set in allSets[0] {
+            let vol = (set.reps * set.weight)
+            volArray.append(vol)
+        }
+        let sum = volArray.reduce(0, +)
+        return sum
+    }
+  
     
     let totalVolume: UILabel = {
         let displayString = UILabel()
         displayString.textColor = .black
-        displayString.text = "\(volume)"
+//        displayString.text = "test"
         displayString.translatesAutoresizingMaskIntoConstraints = false
         return displayString
     }()
@@ -207,6 +212,8 @@ class SetController: UITableViewController {
         totalVolume.leftAnchor.constraint(equalTo: weightTextField.leftAnchor).isActive = true
         totalVolume.widthAnchor.constraint(equalToConstant: 100).isActive = true
         totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        let volume = getVolume()
+        totalVolume.text = "\(volume)"
     }
     
 }
