@@ -49,18 +49,18 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         navigationItem.title = workout?.name
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = IndentedLabel()
-        label.text = "employeeTypes[section]"
-        label.backgroundColor = UIColor.lightBlue
-        label.textColor = UIColor.darkBlue
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        return label
-    }
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let label = IndentedLabel()
+//        label.text = "Recorded Exercises"
+//        label.backgroundColor = UIColor.lightBlue
+//        label.textColor = UIColor.darkBlue
+//        label.font = UIFont.boldSystemFont(ofSize: 16)
+//        return label
+//    }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 50
+//    }
     
     var allExercises = [Exercise]()
     

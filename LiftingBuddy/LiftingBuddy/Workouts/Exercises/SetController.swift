@@ -17,6 +17,8 @@ class SetController: UITableViewController {
     
     var volume: Int16?
     
+    var lastDate: Date?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,6 +97,7 @@ class SetController: UITableViewController {
                 for exer in workoutExercises {
                     if lifts.date?.compare((exercise?.workout!.date)!) == .orderedAscending{
                         preWorkout = true
+                        lastDate = lifts.date
                     }
                     if exer.name == exercise?.name && preWorkout == true && found == false {
                         found = true
@@ -134,7 +137,7 @@ class SetController: UITableViewController {
     }
     
     @objc private func createNewSet() {
-        print("Trying to add a set")
+//        print("Trying to add a set")
         
 //        let context = CoreDataManager.shared.persistentContainer.viewContext
 //
@@ -176,6 +179,30 @@ class SetController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 100
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100
+    }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "The last time you did - \(exercise?.name ?? "Not Found")"
+        label.textColor = .black
+        label.textAlignment = .center
+        label.backgroundColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        let FooterTitle: UILabel = {
+            let textField = UILabel()
+            textField.textColor = .black
+            textField.text = "Date - \(String(describing: lastDate))"
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            return textField
+        }()
+//        view.addSubview(FooterTitle)
+//        FooterTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+//        FooterTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+
+        return label
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -241,7 +268,6 @@ class SetController: UITableViewController {
     
     func getVolume() -> Int16 {
         var volArray = [Int16]()
-//        print(allSets[0])
         for set in allSets[0] {
             let vol = (set.reps * set.weight)
             volArray.append(vol)
@@ -254,7 +280,6 @@ class SetController: UITableViewController {
     let totalVolume: UILabel = {
         let displayString = UILabel()
         displayString.textColor = .black
-//        displayString.text = "test"
         displayString.translatesAutoresizingMaskIntoConstraints = false
         return displayString
     }()
@@ -282,6 +307,13 @@ class SetController: UITableViewController {
         totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
         let volume = getVolume()
         totalVolume.text = "\(volume)"
+        
+//        view.addSubview(FooterTitle)
+//        FooterTitle.topAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        FooterTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+//        FooterTitle.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        FooterTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        FooterTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") Date - \(lastDate)"
     }
     
 }
