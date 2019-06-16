@@ -66,8 +66,10 @@ struct CoreDataManager {
         
         set.reps = setReps
         set.weight = setWeight
+//        set.index = setIndex
         set.setValue(setReps, forKey: "reps")
         set.setValue(setWeight, forKey: "weight")
+//        set.setValue(setIndex, forKey: "index")
         
         do {
             try context.save()
@@ -78,6 +80,21 @@ struct CoreDataManager {
             return (nil, err)
         }
     }
+    
+//    func updateSetIndex(set: Set, intIndex: Int16) {
+//        let context = persistentContainer.viewContext
+//        
+//        set.index = intIndex
+//        
+//        do {
+//            try context.save()
+//            // save succeeds
+//
+//        } catch let err {
+//            print("Failed to update set:", err)
+//
+//        }
+//    }
     
     func createExercise(exerciseName: String, workout: Workout) -> (Exercise?, Error?) {
         let context = persistentContainer.viewContext

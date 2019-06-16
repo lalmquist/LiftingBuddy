@@ -44,6 +44,7 @@ class SetController: UITableViewController {
 //        print(indexPath.row)
         
         let set = allSets[0][indexPath.row]
+        let inpIndex = Int16(indexPath.row)
         
         set.exercise = exercise
         let volume = set.reps * set.weight
@@ -54,9 +55,25 @@ class SetController: UITableViewController {
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         
+        updateSetIndex(set: set, intIndex: inpIndex)
+        
         return cell
     }
     
+    func updateSetIndex(set: Set, intIndex: Int16) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        set.index = intIndex
+        
+        do {
+            try context.save()
+            // save succeeds
+            
+        } catch let err {
+            print("Failed to update set:", err)
+            
+        }
+    }
     
     let cellId = "cellId"
     
@@ -67,6 +84,10 @@ class SetController: UITableViewController {
         // let's use my array and loop to filter instead
         
         allSets.append(workoutSets)
+        
+        allSets[0].sort {
+            $0.index < $1.index
+        }
     }
     
     @objc private func createNewSet() {
