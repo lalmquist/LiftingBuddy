@@ -32,6 +32,8 @@ class SetController: UITableViewController {
         
         fetchSets()
         
+        getLastExerciseData()
+        
         setupUI()
         
     }
@@ -75,6 +77,37 @@ class SetController: UITableViewController {
         }
     }
     
+    func getLastExerciseData() {
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
+        do {
+            let workouts = try context.fetch(fetchRequest)
+            for lifts in workouts {
+                guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return }
+                for exer in workoutExercises {
+
+                    if exer.name == exercise?.name && lifts.date != exercise?.workout?.date {
+                        print("++++++++++ FOUND ++++++++++")
+                        guard let lookUpSets = exer.set?.allObjects as? [Set] else { return }
+                        for items in lookUpSets {
+                        print(items.weight)
+                        print(items.reps)
+                            
+                        }
+                        print("+++++++++++++++++++++++++++")
+                    }
+                }
+            }
+            print("======= DONE =======")
+            
+        } catch let fetchErr {
+            print("Failed to fetch workouts:", fetchErr)
+            
+        }
+    }
+    
     let cellId = "cellId"
     
     private func fetchSets() {
@@ -88,6 +121,7 @@ class SetController: UITableViewController {
         allSets[0].sort {
             $0.index < $1.index
         }
+
     }
     
     @objc private func createNewSet() {
@@ -166,6 +200,10 @@ class SetController: UITableViewController {
         return [deleteAction]
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func didAddSet(set: Set) {
         let section = 0
         allSets[section].append(set)
@@ -194,7 +232,7 @@ class SetController: UITableViewController {
     
     func getVolume() -> Int16 {
         var volArray = [Int16]()
-        print(allSets[0])
+//        print(allSets[0])
         for set in allSets[0] {
             let vol = (set.reps * set.weight)
             volArray.append(vol)

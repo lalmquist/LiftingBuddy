@@ -100,9 +100,9 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        print(indexPath.section)
-        print(indexPath.row)
-        print(allExercises)
+//        print(indexPath.section)
+//        print(indexPath.row)
+//        print(allExercises)
         
         let exercise = allExercises[indexPath.row]
         let inpIndex = Int16(indexPath.row)
