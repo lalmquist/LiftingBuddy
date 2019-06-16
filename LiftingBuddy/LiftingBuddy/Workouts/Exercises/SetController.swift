@@ -79,16 +79,25 @@ class SetController: UITableViewController {
     
     func getLastExerciseData() {
         
+        var found = false
+        var preWorkout = false
+        
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
         do {
+            
             let workouts = try context.fetch(fetchRequest)
-            for lifts in workouts {
+            let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+            
+            for lifts in sortedWorkouts {
                 guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return }
                 for exer in workoutExercises {
-
-                    if exer.name == exercise?.name && lifts.date != exercise?.workout?.date {
+                    if lifts.date?.compare((exercise?.workout!.date)!) == .orderedAscending{
+                        preWorkout = true
+                    }
+                    if exer.name == exercise?.name && preWorkout == true && found == false {
+                        found = true
                         print("++++++++++ FOUND ++++++++++")
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return }
                         for items in lookUpSets {
