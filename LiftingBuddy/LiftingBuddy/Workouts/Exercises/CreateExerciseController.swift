@@ -39,12 +39,29 @@ class CreateExerciseController: UIViewController {
 //        return label
 //    }()
 //
-//    let birthdayTextField: UITextField = {
-//        let textField = UITextField()
-//        textField.placeholder = "MM/dd/yyyy"
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        return textField
-//    }()
+    let Workout1: UILabel = {
+        let textField = UILabel()
+        textField.text = "Bench"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isUserInteractionEnabled = true
+        return textField
+    }()
+    
+    let Workout2: UILabel = {
+        let textField = UILabel()
+        textField.text = "Squat"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.isUserInteractionEnabled = true
+        return textField
+    }()
+    
+    @objc func tapFunction1(sender: UITapGestureRecognizer) {
+        nameTextField.text = "Bench"
+    }
+    
+    @objc func tapFunction2(sender: UITapGestureRecognizer) {
+        nameTextField.text = "Squat"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +75,11 @@ class CreateExerciseController: UIViewController {
         setupUI()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
+        
+        let tap1 = UITapGestureRecognizer(target: self, action: #selector(tapFunction1))
+        Workout1.addGestureRecognizer(tap1)
+        let tap2 = UITapGestureRecognizer(target: self, action: #selector(tapFunction2))
+        Workout2.addGestureRecognizer(tap2)
     }
     
     @objc private func handleSave() {
@@ -139,6 +161,18 @@ class CreateExerciseController: UIViewController {
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+        
+        view.addSubview(Workout1)
+        Workout1.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        Workout1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        Workout1.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout1.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        view.addSubview(Workout2)
+        Workout2.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        Workout2.leftAnchor.constraint(equalTo: Workout1.rightAnchor, constant: 16).isActive = true
+        Workout2.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout2.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
 //        view.addSubview(birthdayLabel)
 //        birthdayLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
