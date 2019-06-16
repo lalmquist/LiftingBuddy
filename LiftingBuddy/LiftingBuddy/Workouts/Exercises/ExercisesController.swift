@@ -68,6 +68,9 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         guard let workoutExercises = workout?.exercise?.allObjects as? [Exercise] else { return }
         allExercises = []
         allExercises = workoutExercises
+        allExercises.sort {
+            $0.index < $1.index
+        }
         // let's use my array and loop to filter instead
 
 //        allExercises.append(workoutExercises)
@@ -79,6 +82,20 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
 //        }
 
     }
+    func updateExerciseIndex(exercise: Exercise, intIndex: Int16) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        exercise.index = intIndex
+        
+        do {
+            try context.save()
+            // save succeeds
+            
+        } catch let err {
+            print("Failed to update exercise:", err)
+            
+        }
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
@@ -88,6 +105,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         print(allExercises)
         
         let exercise = allExercises[indexPath.row]
+        let inpIndex = Int16(indexPath.row)
         
         cell.textLabel?.text = exercise.name
         
@@ -105,6 +123,8 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         cell.backgroundColor = UIColor.tealColor
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        
+        updateExerciseIndex(exercise: exercise, intIndex: inpIndex)
         
         return cell
     }
