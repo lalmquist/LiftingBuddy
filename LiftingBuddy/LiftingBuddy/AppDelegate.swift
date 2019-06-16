@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = .lightRed
+        UINavigationBar.appearance().barTintColor = .darkPurple
         UINavigationBar.appearance().prefersLargeTitles = true
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

@@ -26,7 +26,7 @@ class SetController: UITableViewController {
         
         repsTextField.keyboardType = UIKeyboardType.numberPad
         
-        tableView.backgroundColor = UIColor.darkBlue
+        tableView.backgroundColor = UIColor.black
         
         setupPlusButtonInNavBar(selector: #selector(createNewSet))
 
@@ -55,7 +55,7 @@ class SetController: UITableViewController {
         
         let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
         cell.textLabel?.text = label
-        cell.backgroundColor = UIColor.tealColor
+        cell.backgroundColor = UIColor.black
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         

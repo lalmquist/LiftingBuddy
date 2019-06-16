@@ -169,7 +169,7 @@ class WorkoutsController: UITableViewController {
         
         navigationItem.title = "Workouts"
         
-        tableView.backgroundColor = UIColor.darkBlue
+        tableView.backgroundColor = UIColor.black
         tableView.separatorColor = .white
         tableView.tableFooterView = UIView() // blank UIView
         

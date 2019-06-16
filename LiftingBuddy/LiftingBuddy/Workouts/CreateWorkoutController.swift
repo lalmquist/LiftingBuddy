@@ -89,7 +89,9 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Name"
+        label.text = "   Name"
+        label.textColor = .black
+        label.backgroundColor = .white
         //enable autolayout
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -97,13 +99,17 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
     
     let nameTextField: UITextField = {
         let textField = UITextField()
+        textField.textColor = .black
         textField.placeholder = "Enter name"
+
+        textField.backgroundColor = .white
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     let datePicker: UIDatePicker = {
         let dp = UIDatePicker()
+        dp.backgroundColor = .white
         dp.datePickerMode = .dateAndTime
         dp.translatesAutoresizingMaskIntoConstraints = false
         return dp
@@ -125,7 +131,7 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         
-        view.backgroundColor = UIColor.darkBlue
+        view.backgroundColor = UIColor.black
     }
     
     @objc private func handleSave() {
@@ -200,8 +206,8 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
-        nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        nameLabel.widthAnchor.constraint(equalToConstant: 75).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(nameTextField)

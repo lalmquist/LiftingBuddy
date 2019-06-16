@@ -26,7 +26,7 @@ extension UIViewController {
     
     func setupLightBlueBackgroundView(height: CGFloat) -> UIView {
         let lightBlueBackgroundView = UIView()
-        lightBlueBackgroundView.backgroundColor = UIColor.lightBlue
+        lightBlueBackgroundView.backgroundColor = UIColor.yellow
         lightBlueBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(lightBlueBackgroundView)

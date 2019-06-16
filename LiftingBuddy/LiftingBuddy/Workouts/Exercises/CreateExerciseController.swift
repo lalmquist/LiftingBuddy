@@ -20,6 +20,8 @@ class CreateExerciseController: UIViewController {
     
     let nameLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
+        label.backgroundColor = .white
         label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -27,6 +29,7 @@ class CreateExerciseController: UIViewController {
     
     let nameTextField: UITextField = {
         let textField = UITextField()
+        textField.textColor = .black
         textField.placeholder = "Enter name"
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -70,7 +73,7 @@ class CreateExerciseController: UIViewController {
         
         setupCancelButton()
         
-        view.backgroundColor = .darkBlue
+        view.backgroundColor = .white
         
         setupUI()
         
@@ -148,7 +151,7 @@ class CreateExerciseController: UIViewController {
     
     
     private func setupUI() {
-        _ = setupLightBlueBackgroundView(height: 150)
+//        _ = setupLightBlueBackgroundView(height: 150)
         
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

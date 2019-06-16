@@ -56,7 +56,7 @@ class WorkoutCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.tealColor
+        backgroundColor = UIColor.black
         
 //        addSubview(companyImageView)
 //        companyImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -76,12 +76,3 @@ class WorkoutCell: UITableViewCell {
     }
     
 }
-
-
-
-
-
-
-
-
-

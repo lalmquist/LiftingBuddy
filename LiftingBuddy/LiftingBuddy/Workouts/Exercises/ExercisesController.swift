@@ -99,30 +99,13 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        
-//        print(indexPath.section)
-//        print(indexPath.row)
-//        print(allExercises)
-        
         let exercise = allExercises[indexPath.row]
         let inpIndex = Int16(indexPath.row)
         
         cell.textLabel?.text = exercise.name
-        
-//        if let birthday = exercise.employeeInformation?.birthday {
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "MMM dd, yyyy"
-//
-//            cell.textLabel?.text = "\(exercise.name ?? "")"
-//        }
-        
-        //        if let taxId = employee.employeeInformation?.taxId {
-        //            cell.textLabel?.text = "\(employee.name ?? "")    \(taxId)"
-        //        }
-        
-        cell.backgroundColor = UIColor.tealColor
+        cell.backgroundColor = UIColor.black
         cell.textLabel?.textColor = .white
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 35)
         
         updateExerciseIndex(exercise: exercise, intIndex: inpIndex)
         
@@ -147,12 +130,24 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         fetchExercises()
 //        self.allExercises = CoreDataManager.shared.fetchExercises()
         
-        tableView.backgroundColor = UIColor.darkBlue
+        tableView.backgroundColor = UIColor.black
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ExerciseCell.self, forCellReuseIdentifier: cellId)
         
         setupPlusButtonInNavBar(selector: #selector(handleAdd))
 
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
     }
     
     @objc private func handleAdd() {
@@ -190,6 +185,9 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         deleteAction.backgroundColor = UIColor.lightRed
     
         return [deleteAction]
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
 }
 
