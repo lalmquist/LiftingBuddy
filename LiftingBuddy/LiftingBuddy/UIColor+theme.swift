@@ -22,4 +22,6 @@ extension UIColor {
     
     static let darkPurple = UIColor(red: 64/255, green: 0/255, blue: 90/255, alpha: 1)
     
+    static let custOrange = UIColor(red: 255/255, green: 173/255, blue: 51/255, alpha: 1)
+    
 }
