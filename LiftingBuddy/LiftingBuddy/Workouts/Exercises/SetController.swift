@@ -43,10 +43,6 @@ class SetController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-//        print(allSets)
-//        print(indexPath.section)
-//        print(indexPath.row)
-        
         let set = allSets[0][indexPath.row]
         let inpIndex = Int16(indexPath.row)
         
@@ -185,24 +181,26 @@ class SetController: UITableViewController {
         return 100
     }
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = "The last time you did - \(exercise?.name ?? "Not Found")"
-        label.textColor = .black
-        label.textAlignment = .center
-        label.backgroundColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        let FooterTitle: UILabel = {
-            let textField = UILabel()
-            textField.textColor = .black
-            textField.text = "Date - \(String(describing: lastDate))"
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            return textField
-        }()
-//        view.addSubview(FooterTitle)
-//        FooterTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
-//        FooterTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        let footerLabel = UILabel()
+        footerLabel.text = "The last time you did - \(exercise?.name ?? "Not Found")"
+        footerLabel.textColor = .black
+        footerLabel.textAlignment = .center
+        footerLabel.backgroundColor = .white
+        footerLabel.font = UIFont.boldSystemFont(ofSize: 16)
 
-        return label
+        let footerTitle = UILabel()
+        footerTitle.text = "Date - \(String(describing: lastDate))"
+        footerTitle.textColor = .black
+        footerTitle.textAlignment = .center
+        footerTitle.backgroundColor = .white
+        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
+        
+//        view.addSubview(footerTitle)
+//        footerTitle.topAnchor.constraint(equalTo: footerLabel.bottomAnchor).isActive = true
+//        view.addSubview(footerLabel)
+//        footerLabel.topAnchor.constraint(equalTo: footerLabel.bottomAnchor).isActive = true
+        
+        return footerTitle
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -263,15 +261,7 @@ class SetController: UITableViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
-//    let volumeLabel: UILabel = {
-//        let textField = UILabel()
-//        textField.textColor = .white
-//        textField.text = "Total Volume"
-//        textField.translatesAutoresizingMaskIntoConstraints = false
-//        return textField
-//    }()
-//
+
     let weightTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .black
@@ -312,7 +302,7 @@ class SetController: UITableViewController {
         view.addSubview(weightLabel)
         weightLabel.backgroundColor = .black
         weightLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         weightLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         weightLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         weightLabel.font = UIFont.boldSystemFont(ofSize: 30)
@@ -344,7 +334,7 @@ class SetController: UITableViewController {
         view.addSubview(totalVolume)
         totalVolume.backgroundColor = .black
         totalVolume.topAnchor.constraint(equalTo: weightLabel.bottomAnchor).isActive = true
-        totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         totalVolume.widthAnchor.constraint(equalToConstant: 400).isActive = true
         totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
         totalVolume.font = UIFont.boldSystemFont(ofSize: 30)
