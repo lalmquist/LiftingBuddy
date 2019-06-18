@@ -4,7 +4,7 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//a
+//
 
 import UIKit
 import CoreData
@@ -18,6 +18,8 @@ class SetController: UITableViewController {
     var volume: Int16?
     
     var lastDate: Date?
+    
+    var lastResults: [Int16]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,30 +36,33 @@ class SetController: UITableViewController {
         
         fetchSets()
         
-        getLastExerciseData()
+        var lastResults = getLastExerciseData()
         
         setupUI()
         
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        let set = allSets[0][indexPath.row]
-        let inpIndex = Int16(indexPath.row)
+            let set = allSets[0][indexPath.row]
+            let inpIndex = Int16(indexPath.row)
         
-        set.exercise = exercise
-        let volume = set.reps * set.weight
+            set.exercise = exercise
+            let volume = Int64(set.reps) * Int64(set.weight)
         
-        let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
-        cell.textLabel?.text = label
-        cell.backgroundColor = UIColor.black
-        cell.textLabel?.textColor = .white
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+            let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
+            cell.textLabel?.text = label
+            cell.backgroundColor = UIColor.black
+            cell.textLabel?.textColor = .white
+            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         
-        updateSetIndex(set: set, intIndex: inpIndex)
+            updateSetIndex(set: set, intIndex: inpIndex)
         
         return cell
+        
     }
     
     func updateSetIndex(set: Set, intIndex: Int16) {
@@ -75,7 +80,7 @@ class SetController: UITableViewController {
         }
     }
     
-    func getLastExerciseData() {
+    func getLastExerciseData() -> [Int16] {
         
         var found = false
         var preWorkout = false
@@ -89,7 +94,7 @@ class SetController: UITableViewController {
             let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
             
             for lifts in sortedWorkouts {
-                guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return }
+                guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return [0]}
                 for exer in workoutExercises {
                     if lifts.date?.compare((exercise?.workout!.date)!) == .orderedAscending{
                         preWorkout = true
@@ -98,13 +103,14 @@ class SetController: UITableViewController {
                     if exer.name == exercise?.name && preWorkout == true && found == false {
                         found = true
                         print("++++++++++ FOUND ++++++++++")
-                        guard let lookUpSets = exer.set?.allObjects as? [Set] else { return }
+                        guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
+                        var results = [Int16]()
                         for items in lookUpSets {
-                        print(items.weight)
-                        print(items.reps)
-                            
+                            results.append(items.weight)
+                            results.append(items.reps)
                         }
                         print("+++++++++++++++++++++++++++")
+                        return results
                     }
                 }
             }
@@ -112,9 +118,12 @@ class SetController: UITableViewController {
             
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
-            
+            return [0]
         }
+        return[0]
     }
+    
+    
     
     let cellId = "cellId"
     
@@ -164,15 +173,14 @@ class SetController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-//        label.text = "employeeTypes[section]"
-//        label.backgroundColor = UIColor.lightBlue
-//        label.textColor = UIColor.darkBlue
+//        label.text = "SECTION HEADER"
+//        label.backgroundColor = UIColor.custBlue
+//        label.textColor = UIColor.custBlue
 //        label.font = UIFont.boldSystemFont(ofSize: 16)
 //        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
     
-
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 100
     }
@@ -181,42 +189,34 @@ class SetController: UITableViewController {
         return 100
     }
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerLabel = UILabel()
-        footerLabel.text = "The last time you did - \(exercise?.name ?? "Not Found")"
-        footerLabel.textColor = .black
-        footerLabel.textAlignment = .center
-        footerLabel.backgroundColor = .white
-        footerLabel.font = UIFont.boldSystemFont(ofSize: 16)
 
         let footerTitle = UILabel()
-        footerTitle.text = "Date - \(String(describing: lastDate))"
+        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n Date - \(String(describing: lastDate))\n\(String(describing: lastResults))"
         footerTitle.textColor = .black
         footerTitle.textAlignment = .center
+        footerTitle.numberOfLines = 3
+        footerTitle.lineBreakMode = .byWordWrapping
         footerTitle.backgroundColor = .white
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
-        
-//        view.addSubview(footerTitle)
-//        footerTitle.topAnchor.constraint(equalTo: footerLabel.bottomAnchor).isActive = true
-//        view.addSubview(footerLabel)
-//        footerLabel.topAnchor.constraint(equalTo: footerLabel.bottomAnchor).isActive = true
-        
+
         return footerTitle
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allSets[section].count
-    }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allSets[0].count
+    }
+
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
             let set = self.allSets[indexPath.section][indexPath.row]
             print("Attempting to delete set:")
             
-            print(indexPath.row)
+            print([indexPath])
             self.allSets[indexPath.section].remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            //            self.tableView.deleteSections([indexPath.section], with: .automatic)
+//            self.tableView.deleteSections([indexPath.section], with: .automatic)
             
             // delete the set from Core Data
             let context = CoreDataManager.shared.persistentContainer.viewContext
@@ -239,17 +239,16 @@ class SetController: UITableViewController {
     }
     
     func didAddSet(set: Set) {
-        let section = 0
-        allSets[section].append(set)
-        let row = allSets[section].count
-        let newIndexPath = IndexPath(row: row - 1, section: section)
+        allSets[0].append(set)
+        let row = allSets[0].count
+        let newIndexPath = IndexPath(row: row - 1, section: 0)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
     
     let weightLabel: UILabel = {
         let textField = UILabel()
         textField.textColor = .white
-        textField.text = "Weight"
+        textField.text = "  Weight"
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -257,9 +256,16 @@ class SetController: UITableViewController {
     let repsLabel: UILabel = {
         let textField = UILabel()
         textField.textColor = .white
-        textField.text = "Reps"
+        textField.text = " Reps"
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    let fillLabel: UILabel = {
+        let fill_Label = UILabel()
+        fill_Label.backgroundColor = .custBlue
+        fill_Label.translatesAutoresizingMaskIntoConstraints = false
+        return fill_Label
     }()
 
     let weightTextField: UITextField = {
@@ -278,13 +284,13 @@ class SetController: UITableViewController {
         return textField
     }()
     
-    var sum : Int16?
+    var sum : Int64?
     
-    func getVolume() -> Int16 {
-        var volArray = [Int16]()
+    func getVolume() -> Int64 {
+        var volArray = [Int64]()
         for set in allSets[0] {
-            let vol = (set.reps * set.weight)
-            volArray.append(vol)
+            let vol = Int64(set.reps) * Int64(set.weight)
+            volArray.append(Int64(vol))
         }
         let sum = volArray.reduce(0, +)
         return sum
@@ -300,10 +306,10 @@ class SetController: UITableViewController {
     
     func setupUI() {
         view.addSubview(weightLabel)
-        weightLabel.backgroundColor = .black
+        weightLabel.backgroundColor = .custBlue
         weightLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
-        weightLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        weightLabel.widthAnchor.constraint(equalToConstant: 115).isActive = true
         weightLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         weightLabel.font = UIFont.boldSystemFont(ofSize: 30)
         
@@ -311,42 +317,44 @@ class SetController: UITableViewController {
         weightTextField.backgroundColor = .white
         weightTextField.topAnchor.constraint(equalTo: weightLabel.topAnchor).isActive = true
         weightTextField.leftAnchor.constraint(equalTo: weightLabel.rightAnchor).isActive = true
-        weightTextField.widthAnchor.constraint(equalToConstant: 85).isActive = true
+        weightTextField.widthAnchor.constraint(equalToConstant: 90).isActive = true
         weightTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         weightTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
         view.addSubview(repsLabel)
-        repsLabel.backgroundColor = .black
+        repsLabel.backgroundColor = .custBlue
         repsLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        repsLabel.leftAnchor.constraint(equalTo: weightTextField.rightAnchor, constant: 10).isActive = true
-        repsLabel.widthAnchor.constraint(equalToConstant: 75).isActive = true
+        repsLabel.leftAnchor.constraint(equalTo: weightTextField.rightAnchor, constant: 0).isActive = true
+        repsLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         repsLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         repsLabel.font = UIFont.boldSystemFont(ofSize: 30)
 
         view.addSubview(repsTextField)
         repsTextField.backgroundColor = .white
-        repsTextField.topAnchor.constraint(equalTo: repsLabel.topAnchor).isActive = true
+        repsTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         repsTextField.leftAnchor.constraint(equalTo: repsLabel.rightAnchor, constant: 0).isActive = true
-        repsTextField.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        repsTextField.widthAnchor.constraint(equalToConstant: 65).isActive = true
         repsTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         repsTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
+        view.addSubview(fillLabel)
+        fillLabel.backgroundColor = .custBlue
+        fillLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        fillLabel.leftAnchor.constraint(equalTo: repsTextField.rightAnchor, constant: 0).isActive = true
+        fillLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        fillLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         view.addSubview(totalVolume)
-        totalVolume.backgroundColor = .black
+        totalVolume.backgroundColor = .custBlue
         totalVolume.topAnchor.constraint(equalTo: weightLabel.bottomAnchor).isActive = true
-        totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         totalVolume.widthAnchor.constraint(equalToConstant: 400).isActive = true
         totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
         totalVolume.font = UIFont.boldSystemFont(ofSize: 30)
+        totalVolume.textAlignment = .center
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
         
-//        view.addSubview(FooterTitle)
-//        FooterTitle.topAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        FooterTitle.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-//        FooterTitle.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        FooterTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        FooterTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") Date - \(lastDate)"
     }
     
 }
