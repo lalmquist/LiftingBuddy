@@ -36,8 +36,6 @@ class SetController: UITableViewController {
         
         fetchSets()
         
-        var lastResults = getLastExerciseData()
-        
         setupUI()
         
     }
@@ -102,19 +100,20 @@ class SetController: UITableViewController {
                     }
                     if exer.name == exercise?.name && preWorkout == true && found == false {
                         found = true
-                        print("++++++++++ FOUND ++++++++++")
+//                        print("++++++++++ FOUND ++++++++++")
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
+                        let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         var results = [Int16]()
-                        for items in lookUpSets {
+                        for items in sortedSets {
                             results.append(items.weight)
                             results.append(items.reps)
                         }
-                        print("+++++++++++++++++++++++++++")
+//                        print("+++++++++++++++++++++++++++")
                         return results
                     }
                 }
             }
-            print("======= DONE =======")
+//            print("======= DONE =======")
             
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
@@ -186,15 +185,36 @@ class SetController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
+        let lastResults = getLastExerciseData()
+        if lastResults.count > 1 {
+            let part1 = (lastResults.count/2)
+            let value = 60 + (part1*20)
+            print("1",value)
+            return CGFloat(value)
+        } else {
+            let value = 0
+            print("2",value)
+            return CGFloat(value)
+        }
     }
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-
+        var lastResults = getLastExerciseData()
+        var i = 0
+        var dataString = ""
+        print(lastResults.count)
+        if lastResults.count > 1 {
+            while i < lastResults.count {
+                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1]))\n"
+                i = i + 2
+            }
+        } else {
+            dataString = "No Workouts"
+        }
         let footerTitle = UILabel()
-        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n Date - \(String(describing: lastDate))\n\(String(describing: lastResults))"
+        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n Date - \(String(describing: lastDate))\n\(dataString)"
         footerTitle.textColor = .black
         footerTitle.textAlignment = .center
-        footerTitle.numberOfLines = 3
+        footerTitle.numberOfLines = (lastResults.count/2) + 2
         footerTitle.lineBreakMode = .byWordWrapping
         footerTitle.backgroundColor = .white
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
