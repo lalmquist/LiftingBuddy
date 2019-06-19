@@ -51,11 +51,14 @@ class SetController: UITableViewController {
             set.exercise = exercise
             let volume = Int64(set.reps) * Int64(set.weight)
         
-            let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
+//            let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
+            let label = "\(set.weight) x \(set.reps) -- Total: \(volume) lbs"
+            cell.textLabel?.textAlignment = .center
             cell.textLabel?.text = label
             cell.backgroundColor = UIColor.black
             cell.textLabel?.textColor = .white
-            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        
         
             updateSetIndex(set: set, intIndex: inpIndex)
         
@@ -204,7 +207,8 @@ class SetController: UITableViewController {
         print(lastResults.count)
         if lastResults.count > 1 {
             while i < lastResults.count {
-                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1]))\n"
+                let volume = lastResults[i]*lastResults[i+1]
+                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
                 i = i + 2
             }
         } else {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2049C022B8B09C0019CF7D /* SetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2049BF22B8B09C0019CF7D /* SetCell.swift */; };
 		CE830D7022B7039B00A85D25 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE830D6F22B7039B00A85D25 /* ExerciseCell.swift */; };
 		CEEC902422A4B3C100D92AA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC902322A4B3C100D92AA7 /* AppDelegate.swift */; };
 		CEEC902922A4B3C100D92AA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEEC902722A4B3C100D92AA7 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE2049BF22B8B09C0019CF7D /* SetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCell.swift; sourceTree = "<group>"; };
 		CE830D6F22B7039B00A85D25 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
 		CEEC902022A4B3C100D92AA7 /* LiftingBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftingBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEC902322A4B3C100D92AA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				CEEC904322A4B58100D92AA7 /* CreateExerciseController.swift */,
 				CEEC904F22A4D5F800D92AA7 /* SetController.swift */,
 				CE830D6F22B7039B00A85D25 /* ExerciseCell.swift */,
+				CE2049BF22B8B09C0019CF7D /* SetCell.swift */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				CEEC903622A4B45400D92AA7 /* UIColor+theme.swift in Sources */,
 				CEEC904A22A4B63D00D92AA7 /* WorkoutsController+CreateWorkout.swift in Sources */,
 				CEEC904022A4B52B00D92AA7 /* CoreDataModel.xcdatamodeld in Sources */,
+				CE2049C022B8B09C0019CF7D /* SetCell.swift in Sources */,
 				CE830D7022B7039B00A85D25 /* ExerciseCell.swift in Sources */,
 				CEEC904C22A4B66600D92AA7 /* WorkoutsController+UITableView.swift in Sources */,
 				CEEC905022A4D5F800D92AA7 /* SetController.swift in Sources */,
