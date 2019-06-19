@@ -35,18 +35,20 @@ class CreateExerciseController: UIViewController {
         return textField
     }()
     
-//    let birthdayLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Birthday"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
+    let quickLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Quick Select:"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        return label
+    }()
+
     let Workout1: UILabel = {
         let textField = UILabel()
         textField.text = "Bench"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
+        textField.font = UIFont.boldSystemFont(ofSize: 20)
         return textField
     }()
     
@@ -55,16 +57,21 @@ class CreateExerciseController: UIViewController {
         textField.text = "Squat"
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
+        textField.font = UIFont.boldSystemFont(ofSize: 20)
         return textField
     }()
     
     @objc func tapFunction1(sender: UITapGestureRecognizer) {
         nameTextField.text = "Bench"
+        handleSave()
     }
     
     @objc func tapFunction2(sender: UITapGestureRecognizer) {
         nameTextField.text = "Squat"
+        handleSave()
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,26 +96,6 @@ class CreateExerciseController: UIViewController {
         guard let exerciseName = nameTextField.text else { return }
         guard let workout = self.workout else { return }
         
-        // turn birthdayTextField.text into a date object
-        
-//        guard let birthdayText = birthdayTextField.text else { return }
-        
-        // let's perform the validation step here
-//        if birthdayText.isEmpty {
-//            showError(title: "Empty Birthday", message: "You have not entered a birthday.")
-//            return
-//        }
-        
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MM/dd/yyyy"
-//
-//        guard let birthdayDate = dateFormatter.date(from: birthdayText) else {
-//            showError(title: "Bad Date", message: "Birthday date entered not valid")
-//            return
-//        }
-        
-//        guard let employeeType = employeeTypeSegmentedControl.titleForSegment(at: employeeTypeSegmentedControl.selectedSegmentIndex) else { return }
-        
         let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, workout: workout)
         
         if let error = tuple.1 {
@@ -129,26 +116,7 @@ class CreateExerciseController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
-    
-//    let employeeTypeSegmentedControl: UISegmentedControl = {
-        //        let types = ["Executive", "Senior Management", "Staff"]
-        
-//        let types = [
-//            EmployeeType.Executive.rawValue,
-//            EmployeeType.SeniorManagement.rawValue,
-//            EmployeeType.Staff.rawValue,
-//            EmployeeType.Intern.rawValue
-//        ]
-//
-//        let sc = UISegmentedControl(items: types)
-//        sc.selectedSegmentIndex = 0
-//        sc.translatesAutoresizingMaskIntoConstraints = false
-//        sc.tintColor = UIColor.darkBlue
-//        return sc
-//    }()
-    
-  
-    
+
     
     private func setupUI() {
 //        _ = setupLightBlueBackgroundView(height: 150)
@@ -165,47 +133,24 @@ class CreateExerciseController: UIViewController {
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         
+        view.addSubview(quickLabel)
+        quickLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        quickLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        quickLabel.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        quickLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         view.addSubview(Workout1)
-        Workout1.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        Workout1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        Workout1.topAnchor.constraint(equalTo: quickLabel.bottomAnchor).isActive = true
+        Workout1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 36).isActive = true
         Workout1.widthAnchor.constraint(equalToConstant: 100).isActive = true
         Workout1.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout2)
-        Workout2.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        Workout2.topAnchor.constraint(equalTo: Workout1.topAnchor).isActive = true
         Workout2.leftAnchor.constraint(equalTo: Workout1.rightAnchor, constant: 16).isActive = true
         Workout2.widthAnchor.constraint(equalToConstant: 100).isActive = true
         Workout2.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-//        view.addSubview(birthdayLabel)
-//        birthdayLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-//        birthdayLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
-//        birthdayLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        birthdayLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//
-//        view.addSubview(birthdayTextField)
-//        birthdayTextField.leftAnchor.constraint(equalTo: birthdayLabel.rightAnchor).isActive = true
-//        birthdayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-//        birthdayTextField.bottomAnchor.constraint(equalTo: birthdayLabel.bottomAnchor).isActive = true
-//        birthdayTextField.topAnchor.constraint(equalTo: birthdayLabel.topAnchor).isActive = true
-        
-//        view.addSubview(employeeTypeSegmentedControl)
-//        employeeTypeSegmentedControl.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor, constant: 0).isActive = true
-//        employeeTypeSegmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
-//        employeeTypeSegmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
-//        employeeTypeSegmentedControl.heightAnchor.constraint(equalToConstant: 34).isActive = true
+
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
