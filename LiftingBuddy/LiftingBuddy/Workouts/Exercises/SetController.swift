@@ -191,7 +191,7 @@ class SetController: UITableViewController {
         let lastResults = getLastExerciseData()
         if lastResults.count > 1 {
             let part1 = (lastResults.count/2)
-            let value = 60 + (part1*20)
+            let value = 80 + (part1*20)
             print("1",value)
             return CGFloat(value)
         } else {
@@ -204,10 +204,12 @@ class SetController: UITableViewController {
         var lastResults = getLastExerciseData()
         var i = 0
         var dataString = ""
+        var totalVolume = 0
         print(lastResults.count)
         if lastResults.count > 1 {
             while i < lastResults.count {
                 let volume = lastResults[i]*lastResults[i+1]
+                totalVolume = totalVolume + Int(volume)
                 dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
                 i = i + 2
             }
@@ -215,10 +217,16 @@ class SetController: UITableViewController {
             dataString = "No Workouts"
         }
         let footerTitle = UILabel()
-        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n Date - \(String(describing: lastDate))\n\(dataString)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDatestring = dateFormatter.string(from: lastDate!)
+        
+        
+        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
         footerTitle.textColor = .black
         footerTitle.textAlignment = .center
-        footerTitle.numberOfLines = (lastResults.count/2) + 2
+        footerTitle.numberOfLines = (lastResults.count/2) + 4
         footerTitle.lineBreakMode = .byWordWrapping
         footerTitle.backgroundColor = .white
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
