@@ -12,11 +12,12 @@ class WorkoutCell: UITableViewCell {
     
     var workout: Workout? {
         didSet {
+            
+            let numExercises = workout?.exercise?.count
+            
             nameFoundedDateLabel.text = workout?.name
             
-//            if let imageData = company?.imageData {
-//                companyImageView.image = UIImage(data: imageData)
-//            }
+            NumExercisesLabel.text = "\(numExercises ?? 0) Exercises"
             
             if let name = workout?.name, let founded = workout?.date {
                 let dateFormatter = DateFormatter()
@@ -26,28 +27,22 @@ class WorkoutCell: UITableViewCell {
                 nameFoundedDateLabel.text = dateString
             } else {
                 nameFoundedDateLabel.text = workout?.name
-                
-//                nameFoundedDateLabel.text = "\(workout?.name ?? "") \(company?.numEmployees ?? "")"
             }
         }
     }
-    //a
-    // you cannot declare another image view using "imageView"
-//    let companyImageView: UIImageView = {
-//        let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.layer.cornerRadius = 20
-//        imageView.clipsToBounds = true
-//        imageView.layer.borderColor = UIColor.darkBlue.cgColor
-//        imageView.layer.borderWidth = 1
-//        return imageView
-//    }()
+    
+    let NumExercisesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let nameFoundedDateLabel: UILabel = {
         let label = UILabel()
         label.text = "WORKOUT NAME"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -58,17 +53,17 @@ class WorkoutCell: UITableViewCell {
         
         backgroundColor = UIColor.black
         
-//        addSubview(companyImageView)
-//        companyImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-//        companyImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-//        companyImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-//        companyImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
         addSubview(nameFoundedDateLabel)
         nameFoundedDateLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-        nameFoundedDateLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        nameFoundedDateLabel.topAnchor.constraint(equalTo: topAnchor, constant: -35).isActive = true
         nameFoundedDateLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         nameFoundedDateLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        addSubview(NumExercisesLabel)
+        NumExercisesLabel.leftAnchor.constraint(equalTo: nameFoundedDateLabel.leftAnchor).isActive = true
+        NumExercisesLabel.topAnchor.constraint(equalTo: nameFoundedDateLabel.bottomAnchor, constant: -45).isActive = true
+//        NumExercisesLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+//        NumExercisesLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

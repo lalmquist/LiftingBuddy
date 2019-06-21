@@ -22,23 +22,11 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         didSet {
             nameTextField.text = workout?.name
             
-//            if let imageData = workout?.imageData {
-//                companyImageView.image = UIImage(data: imageData)
-//                setupCircularImageStyle()
-//            }
-            
             guard let founded = workout?.date else { return }
             
             datePicker.date = founded
         }
     }
-    
-//    private func setupCircularImageStyle() {
-//        companyImageView.layer.cornerRadius = companyImageView.frame.width / 2
-//        companyImageView.clipsToBounds = true
-//        companyImageView.layer.borderColor = UIColor.darkBlue.cgColor
-//        companyImageView.layer.borderWidth = 2
-//    }
     
     // not tightly-coupled
     var delegate: CreateWorkoutControllerDelegate?

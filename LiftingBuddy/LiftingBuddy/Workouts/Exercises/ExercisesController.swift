@@ -102,7 +102,9 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         let exercise = allExercises[indexPath.row]
         let inpIndex = Int16(indexPath.row)
         
-        cell.textLabel?.text = exercise.name
+        let numSets = exercise.set?.count
+        
+        cell.textLabel?.text = "\(exercise.name ?? "") -- \(numSets ?? 0) Sets"
         cell.backgroundColor = UIColor.black
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 35)

@@ -163,7 +163,7 @@ class WorkoutsController: UITableViewController {
         
         self.workouts = CoreDataManager.shared.fetchWorkouts()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
         
         view.backgroundColor = .white
         
@@ -176,6 +176,10 @@ class WorkoutsController: UITableViewController {
         tableView.register(WorkoutCell.self, forCellReuseIdentifier: "cellId")
         
         setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     @objc private func handleReset() {
