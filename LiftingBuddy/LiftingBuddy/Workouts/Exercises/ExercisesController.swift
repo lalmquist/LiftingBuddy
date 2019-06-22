@@ -140,6 +140,10 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let label = UILabel()
         label.textColor = .white

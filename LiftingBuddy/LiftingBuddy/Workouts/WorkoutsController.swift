@@ -12,6 +12,7 @@ import CoreData
 class WorkoutsController: UITableViewController {
     
     var workouts = [Workout]()
+//    var sortedWorkouts = [Workout]()
     
     @objc private func doWork() {
         print("Trying to do work...")
@@ -180,6 +181,9 @@ class WorkoutsController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
+        workouts = self.workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+//        self.workouts = CoreDataManager.shared.fetchWorkouts()
+//        tableView.register(WorkoutCell.self, forCellReuseIdentifier: "cellId")
     }
     
     @objc private func handleReset() {

@@ -28,7 +28,8 @@ struct CoreDataManager {
         let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
         do {
             let workouts = try context.fetch(fetchRequest)
-            return workouts
+            let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+            return sortedWorkouts
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
             return []

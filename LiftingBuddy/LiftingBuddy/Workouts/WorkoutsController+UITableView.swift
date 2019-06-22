@@ -12,7 +12,8 @@ extension WorkoutsController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let workout = self.workouts[indexPath.row]
+//        sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+        let workout = workouts[indexPath.row]
         let exercisesController = ExercisesController()
         exercisesController.workout = workout
         navigationController?.pushViewController(exercisesController, animated: true)
@@ -21,6 +22,7 @@ extension WorkoutsController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+//            self.Workouts = self.workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
             let workout = self.workouts[indexPath.row]
             print("Attempting to delete workout:", workout.name ?? "")
             
@@ -81,6 +83,7 @@ extension WorkoutsController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! WorkoutCell
+//        sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
         let workout = workouts[indexPath.row]
         cell.workout = workout
         return cell

@@ -22,6 +22,9 @@ extension WorkoutsController: CreateWorkoutControllerDelegate {
         workouts.append(workout)
         let newIndexPath = IndexPath(row: workouts.count - 1, section: 0)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
+        
+        tableView.reloadData()
+        workouts = self.workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
     }
     
     // specify your extension methods here....
