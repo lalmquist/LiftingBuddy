@@ -48,6 +48,7 @@ class CreateExerciseController: UIViewController {
     let Workout1: UILabel = {
         let textField = UILabel()
         textField.text = "Bench"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -56,7 +57,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout2: UILabel = {
         let textField = UILabel()
-        textField.text = "Squat"
+        textField.text = "Incline Bench"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -65,7 +67,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout3: UILabel = {
         let textField = UILabel()
-        textField.text = "Leg Press"
+        textField.text = "Decline Bench"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -74,7 +77,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout4: UILabel = {
         let textField = UILabel()
-        textField.text = "Deadlift"
+        textField.text = "Squat"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -83,7 +87,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout5: UILabel = {
         let textField = UILabel()
-        textField.text = "Military Press"
+        textField.text = "Deadlift"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -92,7 +97,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout6: UILabel = {
         let textField = UILabel()
-        textField.text = "Lat Pulldown"
+        textField.text = "Leg Press"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -102,6 +108,7 @@ class CreateExerciseController: UIViewController {
     let Workout7: UILabel = {
         let textField = UILabel()
         textField.text = "Seated Row"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -110,7 +117,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout8: UILabel = {
         let textField = UILabel()
-        textField.text = "Barbell Row"
+        textField.text = "Lat Pulldown"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -119,7 +127,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout9: UILabel = {
         let textField = UILabel()
-        textField.text = "Incline Bench"
+        textField.text = "Military Press"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -128,7 +137,8 @@ class CreateExerciseController: UIViewController {
     
     let Workout10: UILabel = {
         let textField = UILabel()
-        textField.text = "Decline Bench"
+        textField.text = "Barbell Row"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -138,6 +148,7 @@ class CreateExerciseController: UIViewController {
     let Workout11: UILabel = {
         let textField = UILabel()
         textField.text = "Tricep Extension"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -147,6 +158,7 @@ class CreateExerciseController: UIViewController {
     let Workout12: UILabel = {
         let textField = UILabel()
         textField.text = "Dumbell Curl"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -156,6 +168,7 @@ class CreateExerciseController: UIViewController {
     let Workout13: UILabel = {
         let textField = UILabel()
         textField.text = "Barbell Curl"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = true
         textField.font = UIFont.boldSystemFont(ofSize: 16)
@@ -167,27 +180,27 @@ class CreateExerciseController: UIViewController {
     }
     
     @objc func tapFunction2(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Squat"
+        nameTextField.text = "Incline Bench"
         handleSave()
     }
     
     @objc func tapFunction3(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Leg Press"
+        nameTextField.text = "Decline Bench"
         handleSave()
     }
     
     @objc func tapFunction4(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Deadlift"
+        nameTextField.text = "Squat"
         handleSave()
     }
     
     @objc func tapFunction5(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Military Press"
+        nameTextField.text = "Deadlift"
         handleSave()
     }
     
     @objc func tapFunction6(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Lat Pulldown"
+        nameTextField.text = "Leg Press"
         handleSave()
     }
     
@@ -197,17 +210,17 @@ class CreateExerciseController: UIViewController {
     }
     
     @objc func tapFunction8(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Barbell Row"
+        nameTextField.text = "Lat Pulldown"
         handleSave()
     }
     
     @objc func tapFunction9(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Incline Bench"
+        nameTextField.text = "Military Press"
         handleSave()
     }
     
     @objc func tapFunction10(sender: UITapGestureRecognizer) {
-        nameTextField.text = "Decline Bench"
+        nameTextField.text = "Barbell Row"
         handleSave()
     }
     
@@ -318,80 +331,80 @@ class CreateExerciseController: UIViewController {
         
         view.addSubview(Workout1)
         Workout1.topAnchor.constraint(equalTo: quickLabel.bottomAnchor).isActive = true
-        Workout1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        Workout1.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout1.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        Workout1.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout1.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout2)
         Workout2.topAnchor.constraint(equalTo: Workout1.topAnchor).isActive = true
-        Workout2.leftAnchor.constraint(equalTo: Workout1.rightAnchor, constant: 16).isActive = true
-        Workout2.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout2.leftAnchor.constraint(equalTo: Workout1.rightAnchor, constant: 0).isActive = true
+        Workout2.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout2.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout3)
         Workout3.topAnchor.constraint(equalTo: Workout2.topAnchor).isActive = true
-        Workout3.leftAnchor.constraint(equalTo: Workout2.rightAnchor, constant: 16).isActive = true
-        Workout3.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout3.leftAnchor.constraint(equalTo: Workout2.rightAnchor, constant: 0).isActive = true
+        Workout3.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout3.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout4)
         Workout4.topAnchor.constraint(equalTo: Workout1.bottomAnchor, constant: 16).isActive = true
         Workout4.leftAnchor.constraint(equalTo: Workout1.leftAnchor, constant: 0).isActive = true
-        Workout4.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout4.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout4.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
         view.addSubview(Workout5)
         Workout5.topAnchor.constraint(equalTo: Workout4.topAnchor, constant: 0).isActive = true
-        Workout5.leftAnchor.constraint(equalTo: Workout4.rightAnchor, constant: 16).isActive = true
-        Workout5.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout5.leftAnchor.constraint(equalTo: Workout4.rightAnchor, constant: 0).isActive = true
+        Workout5.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout5.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout6)
         Workout6.topAnchor.constraint(equalTo: Workout5.topAnchor, constant: 0).isActive = true
-        Workout6.leftAnchor.constraint(equalTo: Workout5.rightAnchor, constant: 16).isActive = true
-        Workout6.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout6.rightAnchor.constraint(equalTo: Workout3.rightAnchor, constant: 0).isActive = true
+        Workout6.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout6.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout7)
         Workout7.topAnchor.constraint(equalTo: Workout4.bottomAnchor, constant: 16).isActive = true
         Workout7.leftAnchor.constraint(equalTo: Workout4.leftAnchor, constant: 0).isActive = true
-        Workout7.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout7.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout7.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout8)
         Workout8.topAnchor.constraint(equalTo: Workout7.topAnchor, constant: 0).isActive = true
-        Workout8.leftAnchor.constraint(equalTo: Workout7.rightAnchor, constant: 16).isActive = true
-        Workout8.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout8.leftAnchor.constraint(equalTo: Workout7.rightAnchor, constant: 0).isActive = true
+        Workout8.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout8.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout9)
         Workout9.topAnchor.constraint(equalTo: Workout8.topAnchor, constant: 0).isActive = true
-        Workout9.leftAnchor.constraint(equalTo: Workout8.rightAnchor, constant: 16).isActive = true
-        Workout9.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout9.rightAnchor.constraint(equalTo: Workout3.rightAnchor, constant: 0).isActive = true
+        Workout9.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout9.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout10)
         Workout10.topAnchor.constraint(equalTo: Workout9.bottomAnchor, constant: 16).isActive = true
-        Workout10.leftAnchor.constraint(equalTo: Workout4.leftAnchor, constant: 0).isActive = true
-        Workout10.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout10.leftAnchor.constraint(equalTo: Workout7.leftAnchor, constant: 0).isActive = true
+        Workout10.widthAnchor.constraint(equalToConstant:127).isActive = true
         Workout10.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout11)
         Workout11.topAnchor.constraint(equalTo: Workout10.topAnchor, constant: 0).isActive = true
-        Workout11.leftAnchor.constraint(equalTo: Workout10.rightAnchor, constant: 16).isActive = true
-        Workout11.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout11.leftAnchor.constraint(equalTo: Workout10.rightAnchor, constant: 0).isActive = true
+        Workout11.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout11.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout12)
         Workout12.topAnchor.constraint(equalTo: Workout11.topAnchor, constant: 0).isActive = true
-        Workout12.leftAnchor.constraint(equalTo: Workout11.rightAnchor, constant: 16).isActive = true
-        Workout12.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout12.leftAnchor.constraint(equalTo: Workout11.rightAnchor, constant: 0).isActive = true
+        Workout12.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout12.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(Workout13)
         Workout13.topAnchor.constraint(equalTo: Workout10.bottomAnchor, constant: 16).isActive = true
         Workout13.leftAnchor.constraint(equalTo: Workout10.leftAnchor, constant: 0).isActive = true
-        Workout13.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        Workout13.widthAnchor.constraint(equalToConstant: 127).isActive = true
         Workout13.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
     }

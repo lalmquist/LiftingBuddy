@@ -13,7 +13,7 @@ extension UIViewController {
     //my extension/helper methods
     
     func setupPlusButtonInNavBar(selector: Selector) {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus copy"), style: .plain, target: self, action: selector)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Icon_31-512"), style: .plain, target: self, action: selector)
     }
     
     func setupCancelButton() {
