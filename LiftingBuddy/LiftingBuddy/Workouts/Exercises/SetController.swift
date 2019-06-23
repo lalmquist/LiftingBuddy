@@ -187,10 +187,6 @@ class SetController: UITableViewController {
         return 100
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        resignFirstResponder()
-    }
-    
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         let lastResults = getLastExerciseData()
         if lastResults.count > 1 {
