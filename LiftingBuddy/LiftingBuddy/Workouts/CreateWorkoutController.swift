@@ -27,54 +27,9 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
             datePicker.date = founded
         }
     }
-    
-    // not tightly-coupled
+
     var delegate: CreateWorkoutControllerDelegate?
-    
-    //    var companiesController: CompaniesController?
-    
-//    lazy var companyImageView: UIImageView = {
-//        let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.isUserInteractionEnabled = true // remember to do this, otherwise image views by default are not interactive
-//
-//        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectPhoto)))
-//
-//        return imageView
-//    }()
-    
-//    @objc private func handleSelectPhoto() {
-//        print("Trying to select photo...")
-//
-//        let imagePickerController = UIImagePickerController()
-//
-//        imagePickerController.delegate = self
-//        imagePickerController.allowsEditing = true
-//
-//        present(imagePickerController, animated: true, completion: nil)
-//    }
-//
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        dismiss(animated: true, completion: nil)
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//
-//        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-//
-//            companyImageView.image = editedImage
-//
-//        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            companyImageView.image = originalImage
-//        }
-//
-//        setupCircularImageStyle()
-//
-//        dismiss(animated: true, completion: nil)
-//
-//    }
-    
+
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "   Name"
@@ -136,11 +91,6 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         workout?.name = nameTextField.text
         workout?.date = datePicker.date
         
-//        if let companyImage = companyImageView.image {
-//            let imageData = companyImage.jpegData(compressionQuality: 0.8)
-//            company?.imageData = imageData
-//        }
-        
         do {
             try context.save()
             
@@ -163,11 +113,6 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         workout.setValue(nameTextField.text, forKey: "name")
         workout.setValue(datePicker.date, forKey: "date")
         
-//        if let companyImage = companyImageView.image {
-//            let imageData = companyImage.jpegData(compressionQuality: 0.8)
-//            company.setValue(imageData, forKey: "imageData")
-//        }
-        
         // perform the save
         do {
             try context.save()
@@ -184,13 +129,6 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
     
     private func setupUI() {
         let lightBlueBackgroundView = setupLightBlueBackgroundView(height: 350)
-        
-//        view.addSubview(companyImageView)
-//        companyImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
-//        companyImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-//        companyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        companyImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
         
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
