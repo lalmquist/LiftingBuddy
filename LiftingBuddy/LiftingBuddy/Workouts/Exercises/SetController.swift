@@ -57,8 +57,8 @@ class SetController: UITableViewController {
             cell.textLabel?.text = label
             cell.backgroundColor = UIColor.black
             cell.textLabel?.textColor = .white
+            cell.selectionStyle = .none
             cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        
         
             updateSetIndex(set: set, intIndex: inpIndex)
         
@@ -185,6 +185,10 @@ class SetController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 100
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        resignFirstResponder()
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
