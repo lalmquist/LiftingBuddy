@@ -98,18 +98,20 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ExerciseCell
         let exercise = allExercises[indexPath.row]
         let inpIndex = Int16(indexPath.row)
         
-        let numSets = exercise.set?.count
+//        let numSets = exercise.set?.count
         
-        cell.textLabel?.text = "\(exercise.name ?? "") -- \(numSets ?? 0) Sets"
-        cell.backgroundColor = UIColor.black
-        cell.textLabel?.textColor = .white
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 35)
+//        cell.textLabel?.text = "\(exercise.name ?? "") -- \(numSets ?? 0) Sets"
+//        cell.backgroundColor = UIColor.black
+//        cell.textLabel?.textColor = .white
+//        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 35)
         
         updateExerciseIndex(exercise: exercise, intIndex: inpIndex)
+        
+        cell.exercise = exercise
         
         return cell
     }
@@ -193,7 +195,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         return [deleteAction]
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 100
     }
 }
 
