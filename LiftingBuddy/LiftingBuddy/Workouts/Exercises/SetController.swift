@@ -24,6 +24,10 @@ class SetController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        
+        view.addGestureRecognizer(tap)
+        
         weightTextField.keyboardType = UIKeyboardType.numberPad
         
         repsTextField.keyboardType = UIKeyboardType.numberPad
@@ -38,6 +42,10 @@ class SetController: UITableViewController {
         
         setupUI()
         
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
