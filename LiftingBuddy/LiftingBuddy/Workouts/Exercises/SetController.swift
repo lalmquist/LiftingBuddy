@@ -26,7 +26,10 @@ class SetController: UITableViewController {
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         
+        let swipe: UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        
         view.addGestureRecognizer(tap)
+        view.addGestureRecognizer(swipe)
         
         weightTextField.keyboardType = UIKeyboardType.numberPad
         
@@ -174,6 +177,7 @@ class SetController: UITableViewController {
             didAddSet(set: set.0!)
         }
         setupUI()
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
