@@ -7,6 +7,7 @@
 //a
 
 import UIKit
+import CoreData
 
 extension WorkoutsController {
     
@@ -45,7 +46,10 @@ extension WorkoutsController {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
         editAction.backgroundColor = UIColor.darkBlue
         
-        return [deleteAction, editAction]
+        let copyAction = UITableViewRowAction(style: .normal, title: "Copy", handler: copyHandlerFunction)
+        copyAction.backgroundColor = UIColor.blue
+        
+        return [deleteAction, editAction, copyAction]
     }
     
     private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
@@ -56,6 +60,51 @@ extension WorkoutsController {
         editWorkoutController.workout = workouts[indexPath.row]
         let navController = CustomNavigationController(rootViewController: editWorkoutController)
         present(navController, animated: true, completion: nil)
+    }
+    
+    private func copyHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
+        print("copying")
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+            
+        let workout = NSEntityDescription.insertNewObject(forEntityName: "Workout", into: context)
+        
+        let name = workouts[indexPath.row].name
+            
+        workout.setValue(name, forKey: "name")
+        workout.setValue(Date(), forKey: "date")
+        
+        guard let workoutExercises = workouts[indexPath.row].exercise?.allObjects as? [Exercise] else { return }
+        var allExercises = [] as [Exercise]
+        
+        allExercises = workoutExercises
+        allExercises.sort {
+            $0.index < $1.index
+        }
+        
+//        print(allExercises)
+        
+        for lifts in allExercises {
+            let exerciseName = lifts.name ?? "nil"
+
+            let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, workout: workout as! Workout)
+
+                if let error = tuple.1 {
+                    // is where you present an error modal of some kind
+                    // perhaps use a UIAlertController to show your error message
+                    print(error)
+                } else {
+                    print("no error")
+                }
+        }
+        // perform the save
+        do {
+            try context.save()
+            didAddWorkout(workout: workout as! Workout)
+            
+        } catch let saveErr {
+            print("Failed to save workout:", saveErr)
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

@@ -22,16 +22,7 @@ class IndentedLabel: UILabel {
 
 class ExercisesController: UITableViewController, CreateExerciseControllerDelegate {
     
-    // remember this is called when we dismiss employee creation
     func didAddExercise(exercise: Exercise) {
-        //        fetchEmployees()
-        //        tableView.reloadData()
-        
-        // what is the insertion index path?
-        
-//        guard let section = employeeTypes.index(of: employee.type!) else { return }
-        
-        // what is my row?
 
         let row = allExercises.count
         
@@ -48,20 +39,6 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         super.viewWillAppear(animated)
         navigationItem.title = workout?.name
     }
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let label = IndentedLabel()
-//        label.text = "Recorded Exercises"
-//        label.backgroundColor = UIColor.lightBlue
-//        label.textColor = UIColor.darkBlue
-//        label.font = UIFont.boldSystemFont(ofSize: 16)
-//        return label
-//    }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 50
-//    }
-    
     var allExercises = [Exercise]()
     
     private func fetchExercises() {
@@ -71,15 +48,6 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         allExercises.sort {
             $0.index < $1.index
         }
-        // let's use my array and loop to filter instead
-
-//        allExercises.append(workoutExercises)
-
-//        employeeTypes.forEach { (employeeType) in
-
-            // somehow construct my allEmployees array
-//            allExercises.append(workoutExercises)
-//        }
 
     }
     func updateExerciseIndex(exercise: Exercise, intIndex: Int16) {

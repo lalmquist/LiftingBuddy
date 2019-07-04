@@ -105,7 +105,7 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
     }
     
     private func createWorkout() {
-        print("Trying to save company...")
+        print("Trying to save workout...")
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let workout = NSEntityDescription.insertNewObject(forEntityName: "Workout", into: context)
