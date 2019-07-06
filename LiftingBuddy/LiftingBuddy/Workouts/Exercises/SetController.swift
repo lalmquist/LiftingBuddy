@@ -241,11 +241,11 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         
         footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
-        footerTitle.textColor = .black
+        footerTitle.textColor = .white
         footerTitle.textAlignment = .center
         footerTitle.numberOfLines = (lastResults.count/2) + 4
         footerTitle.lineBreakMode = .byWordWrapping
-        footerTitle.backgroundColor = .white
+        footerTitle.backgroundColor = .black
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
 
         return footerTitle
@@ -297,7 +297,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     let weightLabel: UILabel = {
         let textField = UILabel()
         textField.textColor = .white
-        textField.text = "  Weight"
+        textField.text = " Weight"
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -312,7 +312,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     let fillLabel: UILabel = {
         let fill_Label = UILabel()
-        fill_Label.backgroundColor = .custBlue
+        fill_Label.backgroundColor = .custGreen
         fill_Label.translatesAutoresizingMaskIntoConstraints = false
         return fill_Label
     }()
@@ -321,6 +321,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let textField = UITextField()
         textField.textColor = .black
         textField.placeholder = "0"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -329,6 +330,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let textField = UITextField()
         textField.textColor = .black
         textField.placeholder = "0"
+        textField.textAlignment = .center
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -366,7 +368,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     func setupUI() {
         view.addSubview(weightLabel)
-        weightLabel.backgroundColor = .custBlue
+        weightLabel.backgroundColor = .custGreen
         weightLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         weightLabel.widthAnchor.constraint(equalToConstant: 115).isActive = true
@@ -382,7 +384,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         weightTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
         view.addSubview(repsLabel)
-        repsLabel.backgroundColor = .custBlue
+        repsLabel.backgroundColor = .custGreen
         repsLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         repsLabel.leftAnchor.constraint(equalTo: weightTextField.rightAnchor, constant: 0).isActive = true
         repsLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -393,19 +395,19 @@ class SetController: UITableViewController, UITextFieldDelegate {
         repsTextField.backgroundColor = .white
         repsTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         repsTextField.leftAnchor.constraint(equalTo: repsLabel.rightAnchor, constant: 0).isActive = true
-        repsTextField.widthAnchor.constraint(equalToConstant: 65).isActive = true
+        repsTextField.widthAnchor.constraint(equalToConstant: 75).isActive = true
         repsTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         repsTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
         view.addSubview(fillLabel)
-        fillLabel.backgroundColor = .custBlue
+        fillLabel.backgroundColor = .custGreen
         fillLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         fillLabel.leftAnchor.constraint(equalTo: repsTextField.rightAnchor, constant: 0).isActive = true
         fillLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
         fillLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(totalVolume)
-        totalVolume.backgroundColor = .custBlue
+        totalVolume.backgroundColor = .custGreen
         totalVolume.topAnchor.constraint(equalTo: weightLabel.bottomAnchor).isActive = true
         totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         totalVolume.widthAnchor.constraint(equalToConstant: 400).isActive = true
