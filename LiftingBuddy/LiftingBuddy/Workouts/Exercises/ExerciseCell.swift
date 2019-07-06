@@ -17,7 +17,7 @@ class ExerciseCell: UITableViewCell {
                 nameFoundedDateLabel.text = "\(exercise?.name ?? "")"
                 setLabel.text = "\(numSets ?? 0) Set"
             } else if numSets == 0 {
-                nameFoundedDateLabel.text = "\(exercise?.name ?? "")"
+                nameFoundedDateLabel.text = "\(exercise?.name ?? "") \(exercise?.index ?? 99)"
                 setLabel.text = "No Sets"
             } else {
             nameFoundedDateLabel.text = "\(exercise?.name ?? "")"

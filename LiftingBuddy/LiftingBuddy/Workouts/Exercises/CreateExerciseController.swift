@@ -100,7 +100,7 @@ class CreateExerciseController: UITableViewController {
         guard let exerciseName = nameTextField.text else { return }
         guard let workout = self.workout else { return }
         
-        let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, workout: workout)
+        let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, inpIndex: 0, workout: workout)
         
         if let error = tuple.1 {
             // is where you present an error modal of some kind

@@ -61,7 +61,7 @@ struct CoreDataManager {
 //        }
 //    }
     
-    func createSet(setReps: Int16, setWeight: Int16) -> (Set?, Error?) {
+    func createSet(setReps: Int64, setWeight: Int64) -> (Set?, Error?) {
         let context = persistentContainer.viewContext
         let set = NSEntityDescription.insertNewObject(forEntityName: "Set", into: context) as! Set
         
@@ -97,7 +97,7 @@ struct CoreDataManager {
 //        }
 //    }
     
-    func createExercise(exerciseName: String, workout: Workout) -> (Exercise?, Error?) {
+    func createExercise(exerciseName: String, inpIndex: Int16, workout: Workout) -> (Exercise?, Error?) {
         let context = persistentContainer.viewContext
         
         //create an exercise
@@ -115,7 +115,7 @@ struct CoreDataManager {
         //        employee.company
         
         exercise.setValue(exerciseName, forKey: "name")
-        
+        exercise.setValue(inpIndex, forKey: "index")
 //        tuple = (exercise, set)
         
 //        let employeeInformation = NSEntityDescription.insertNewObject(forEntityName: "EmployeeInformation", into: context) as! EmployeeInformation

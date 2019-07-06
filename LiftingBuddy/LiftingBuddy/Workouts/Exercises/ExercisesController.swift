@@ -69,14 +69,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ExerciseCell
         let exercise = allExercises[indexPath.row]
         let inpIndex = Int16(indexPath.row)
-        
-//        let numSets = exercise.set?.count
-        
-//        cell.textLabel?.text = "\(exercise.name ?? "") -- \(numSets ?? 0) Sets"
-//        cell.backgroundColor = UIColor.black
-//        cell.textLabel?.textColor = .white
-//        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 35)
-        
+
         updateExerciseIndex(exercise: exercise, intIndex: inpIndex)
         
         cell.exercise = exercise

@@ -85,16 +85,17 @@ extension WorkoutsController {
 //        print(allExercises)
         
         for lifts in allExercises {
+            print(lifts.index)
             let exerciseName = lifts.name ?? "nil"
 
-            let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, workout: workout as! Workout)
+            let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, inpIndex: lifts.index, workout: workout as! Workout)
 
                 if let error = tuple.1 {
                     // is where you present an error modal of some kind
                     // perhaps use a UIAlertController to show your error message
                     print(error)
                 } else {
-                    print("no error")
+//                    print("no error")
                 }
         }
         // perform the save

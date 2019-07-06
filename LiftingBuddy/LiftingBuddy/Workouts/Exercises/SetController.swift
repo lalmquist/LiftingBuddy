@@ -9,17 +9,17 @@
 import UIKit
 import CoreData
 
-class SetController: UITableViewController {
+class SetController: UITableViewController, UITextFieldDelegate {
     
     var exercise: Exercise?
        
     var allSets = [[Set]]()
     
-    var volume: Int16?
+    var volume: Int64?
     
     var lastDate: Date?
     
-    var lastResults: [Int16]?
+    var lastResults: [Int64]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +40,10 @@ class SetController: UITableViewController {
         setupPlusButtonInNavBar(selector: #selector(createNewSet))
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        
+        repsTextField.delegate = self
+        
+        weightTextField.delegate = self
         
         fetchSets()
         
@@ -92,7 +96,7 @@ class SetController: UITableViewController {
         }
     }
     
-    func getLastExerciseData() -> [Int16] {
+    func getLastExerciseData() -> [Int64] {
         
         var found = false
         var preWorkout = false
@@ -117,7 +121,7 @@ class SetController: UITableViewController {
 //                        print("++++++++++ FOUND ++++++++++")
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
-                        var results = [Int16]()
+                        var results = [Int64]()
                         for items in sortedSets {
                             results.append(items.weight)
                             results.append(items.reps)
@@ -161,8 +165,8 @@ class SetController: UITableViewController {
 //
 //        let set = NSEntityDescription.insertNewObject(forEntityName: "Set", into: context)
         
-        let intReps = Int16(repsTextField.text ?? "0")
-        let intWeight = Int16(weightTextField.text ?? "0")
+        let intReps = Int64(repsTextField.text ?? "0")
+        let intWeight = Int64(weightTextField.text ?? "0")
         
         let set = CoreDataManager.shared.createSet(setReps: intReps ?? 0, setWeight: intWeight ?? 0)
         
@@ -216,12 +220,13 @@ class SetController: UITableViewController {
         var lastResults = getLastExerciseData()
         var i = 0
         var dataString = ""
-        var totalVolume = 0
-        print(lastResults.count)
+        var totalVolume = Int64(0)
+
+//        print(lastResults.count)
         if lastResults.count > 1 {
             while i < lastResults.count {
-                let volume = lastResults[i]*lastResults[i+1]
-                totalVolume = totalVolume + Int(volume)
+                let volume = Int64(lastResults[i]*lastResults[i+1])
+                totalVolume = totalVolume + Int64(volume)
                 dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
                 i = i + 2
             }
@@ -327,6 +332,17 @@ class SetController: UITableViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentCharacterCount = textField.text?.count ?? 0
+        if range.length + range.location > currentCharacterCount {
+            return false
+        }
+        let newLength = currentCharacterCount + string.count - range.length
+        
+        return newLength <= 3
+    }
     
     var sum : Int64?
     
