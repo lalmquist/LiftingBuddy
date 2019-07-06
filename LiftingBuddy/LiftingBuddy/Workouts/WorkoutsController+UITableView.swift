@@ -23,24 +23,37 @@ extension WorkoutsController {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
-//            self.Workouts = self.workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
-            let workout = self.workouts[indexPath.row]
-            print("Attempting to delete workout:", workout.name ?? "")
+
+            let deleteAlert = UIAlertController(title: "Delete Workout?", message: "", preferredStyle: UIAlertController.Style.alert)
+            self.present(deleteAlert, animated: true, completion: nil)
             
-            self.workouts.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            deleteAlert.addAction(UIAlertAction(title:"Ok", style: .destructive, handler: {(action: UIAlertAction!) in
+                print("handle ok logic")
+                
+                let workout = self.workouts[indexPath.row]
+                print("Attempting to delete workout:", workout.name ?? "")
+                
+                self.workouts.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                // delete the company from Core Data
+                let context = CoreDataManager.shared.persistentContainer.viewContext
+                
+                context.delete(workout)
+                
+                do {
+                    try context.save()
+                } catch let saveErr {
+                    print("Failed to delete workout:", saveErr)
+                }
             
-            // delete the company from Core Data
-            let context = CoreDataManager.shared.persistentContainer.viewContext
+            }))
             
-            context.delete(workout)
-            
-            do {
-                try context.save()
-            } catch let saveErr {
-                print("Failed to delete workout:", saveErr)
-            }
+            deleteAlert.addAction(UIAlertAction(title:"Cancel", style: .default, handler: {(action: UIAlertAction!) in
+                print("handle cancel logic")
+            }))
         }
+        
         deleteAction.backgroundColor = UIColor.lightRed
         
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
