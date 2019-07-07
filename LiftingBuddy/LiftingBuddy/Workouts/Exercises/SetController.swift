@@ -245,7 +245,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         footerTitle.textAlignment = .center
         footerTitle.numberOfLines = (lastResults.count/2) + 4
         footerTitle.lineBreakMode = .byWordWrapping
-        footerTitle.backgroundColor = .black
+        footerTitle.backgroundColor = .custGrey
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
 
         return footerTitle
@@ -312,7 +312,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     let fillLabel: UILabel = {
         let fill_Label = UILabel()
-        fill_Label.backgroundColor = .custGreen
+        fill_Label.backgroundColor = .custGrey
         fill_Label.translatesAutoresizingMaskIntoConstraints = false
         return fill_Label
     }()
@@ -368,7 +368,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     func setupUI() {
         view.addSubview(weightLabel)
-        weightLabel.backgroundColor = .custGreen
+        weightLabel.backgroundColor = .custGrey
         weightLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         weightLabel.widthAnchor.constraint(equalToConstant: 115).isActive = true
@@ -384,7 +384,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         weightTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
         view.addSubview(repsLabel)
-        repsLabel.backgroundColor = .custGreen
+        repsLabel.backgroundColor = .custGrey
         repsLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         repsLabel.leftAnchor.constraint(equalTo: weightTextField.rightAnchor, constant: 0).isActive = true
         repsLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -400,14 +400,14 @@ class SetController: UITableViewController, UITextFieldDelegate {
         repsTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
         view.addSubview(fillLabel)
-        fillLabel.backgroundColor = .custGreen
+        fillLabel.backgroundColor = .custGrey
         fillLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         fillLabel.leftAnchor.constraint(equalTo: repsTextField.rightAnchor, constant: 0).isActive = true
         fillLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
         fillLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(totalVolume)
-        totalVolume.backgroundColor = .custGreen
+        totalVolume.backgroundColor = .custGrey
         totalVolume.topAnchor.constraint(equalTo: weightLabel.bottomAnchor).isActive = true
         totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         totalVolume.widthAnchor.constraint(equalToConstant: 400).isActive = true
