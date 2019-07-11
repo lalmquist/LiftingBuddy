@@ -176,14 +176,14 @@ class CreateExerciseController: UITableViewController {
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor).isActive = true
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        nameTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        nameTextField.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         nameTextField.backgroundColor = .white
         
         view.addSubview(quickLabel)
         quickLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         quickLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        quickLabel.widthAnchor.constraint(equalToConstant: 375).isActive = true
+        quickLabel.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         quickLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         quickLabel.backgroundColor = .white
         

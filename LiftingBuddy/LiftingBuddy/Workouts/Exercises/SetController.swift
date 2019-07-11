@@ -245,7 +245,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         footerTitle.textAlignment = .center
         footerTitle.numberOfLines = (lastResults.count/2) + 4
         footerTitle.lineBreakMode = .byWordWrapping
-        footerTitle.backgroundColor = .custGrey
+        footerTitle.backgroundColor = .custGreen
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
 
         return footerTitle
@@ -312,7 +312,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     let fillLabel: UILabel = {
         let fill_Label = UILabel()
-        fill_Label.backgroundColor = .custGrey
+        fill_Label.backgroundColor = .custGreen
         fill_Label.translatesAutoresizingMaskIntoConstraints = false
         return fill_Label
     }()
@@ -367,10 +367,20 @@ class SetController: UITableViewController, UITextFieldDelegate {
     }()
     
     func setupUI() {
+        
+        view.addSubview(fillLabel)
+        fillLabel.backgroundColor = .custGreen
+        fillLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        fillLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        fillLabel.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        fillLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        let startWidth = (view.frame.width/2)-180
+        
         view.addSubview(weightLabel)
-        weightLabel.backgroundColor = .custGrey
+        weightLabel.backgroundColor = .custGreen
         weightLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        weightLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: startWidth).isActive = true
         weightLabel.widthAnchor.constraint(equalToConstant: 115).isActive = true
         weightLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         weightLabel.font = UIFont.boldSystemFont(ofSize: 30)
@@ -384,7 +394,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         weightTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
         view.addSubview(repsLabel)
-        repsLabel.backgroundColor = .custGrey
+        repsLabel.backgroundColor = .custGreen
         repsLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         repsLabel.leftAnchor.constraint(equalTo: weightTextField.rightAnchor, constant: 0).isActive = true
         repsLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -399,18 +409,11 @@ class SetController: UITableViewController, UITextFieldDelegate {
         repsTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         repsTextField.font = UIFont.boldSystemFont(ofSize: 45)
         
-        view.addSubview(fillLabel)
-        fillLabel.backgroundColor = .custGrey
-        fillLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        fillLabel.leftAnchor.constraint(equalTo: repsTextField.rightAnchor, constant: 0).isActive = true
-        fillLabel.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        fillLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         view.addSubview(totalVolume)
-        totalVolume.backgroundColor = .custGrey
+        totalVolume.backgroundColor = .custGreen
         totalVolume.topAnchor.constraint(equalTo: weightLabel.bottomAnchor).isActive = true
         totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        totalVolume.widthAnchor.constraint(equalToConstant: 450).isActive = true
+        totalVolume.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
         totalVolume.font = UIFont.boldSystemFont(ofSize: 30)
         totalVolume.textAlignment = .center
