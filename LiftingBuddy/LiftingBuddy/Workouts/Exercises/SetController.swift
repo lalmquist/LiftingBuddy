@@ -51,13 +51,13 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
     }
     
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
+  
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
             let set = allSets[0][indexPath.row]
@@ -410,7 +410,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         totalVolume.backgroundColor = .custGrey
         totalVolume.topAnchor.constraint(equalTo: weightLabel.bottomAnchor).isActive = true
         totalVolume.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        totalVolume.widthAnchor.constraint(equalToConstant: 400).isActive = true
+        totalVolume.widthAnchor.constraint(equalToConstant: 450).isActive = true
         totalVolume.heightAnchor.constraint(equalToConstant: 50).isActive = true
         totalVolume.font = UIFont.boldSystemFont(ofSize: 30)
         totalVolume.textAlignment = .center
