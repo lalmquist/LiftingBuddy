@@ -183,6 +183,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
             didAddSet(set: set.0!)
         }
         setupUI()
+        checkImprove()
         view.endEditing(true)
     }
     
@@ -252,6 +253,8 @@ class SetController: UITableViewController, UITextFieldDelegate {
         footerTitle.lineBreakMode = .byWordWrapping
         footerTitle.backgroundColor = .custGreen
         footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        checkImprove()
 
         return footerTitle
     }
@@ -279,6 +282,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
             self.setupUI()
             do {
                 try context.save()
+                self.checkImprove()
             } catch let saveErr {
                 print("Failed to delete exercise:", saveErr)
             }
@@ -381,6 +385,21 @@ class SetController: UITableViewController, UITextFieldDelegate {
             
         }
     }
+    
+    func checkImprove() {
+        
+        let localvol = getVolume()
+        print(localvol)
+        print(total_volume ?? 9999)
+        
+        if localvol > total_volume ?? 9999  {
+            didImprove(exercise: exercise!, improved: true)
+        } else {
+            didImprove(exercise: exercise!, improved: false)
+        }
+        
+        print(exercise?.improved ?? false)
+    }
   
     
     let totalVolume: UILabel = {
@@ -443,18 +462,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         totalVolume.textAlignment = .center
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
-        
-        print(volume)
-        print(total_volume ?? 9999)
-        
-        if volume > total_volume ?? 9999  {
-            didImprove(exercise: exercise!, improved: true)
-        } else {
-            didImprove(exercise: exercise!, improved: false)
-        }
-        
-        print(exercise?.improved ?? false)
-        
+
     }
     
 }
