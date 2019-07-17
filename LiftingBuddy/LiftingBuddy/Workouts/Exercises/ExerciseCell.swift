@@ -16,15 +16,18 @@ class ExerciseCell: UITableViewCell {
             if numSets == 1 {
                 nameFoundedDateLabel.text = "\(exercise?.name ?? "")"
                 setLabel.text = "\(numSets ?? 0) Set"
+                setLabel.textColor = .white
             } else if numSets == 0 {
                 nameFoundedDateLabel.text = "\(exercise?.name ?? "")"
                 setLabel.text = "No Sets"
+                setLabel.textColor = .orange
             } else {
             nameFoundedDateLabel.text = "\(exercise?.name ?? "")"
             setLabel.text = "\(numSets ?? 0) Sets"
+            setLabel.textColor = .white
             }
             if exercise?.improved == true {
-                improvedLabel.text = "improved!"
+                improvedLabel.text = "✅"
             } else {
                 improvedLabel.text = ""
             }
@@ -53,7 +56,7 @@ class ExerciseCell: UITableViewCell {
     
     let improvedLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 35)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -77,7 +80,7 @@ class ExerciseCell: UITableViewCell {
         
         addSubview(improvedLabel)
         improvedLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        improvedLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        improvedLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         improvedLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
     }

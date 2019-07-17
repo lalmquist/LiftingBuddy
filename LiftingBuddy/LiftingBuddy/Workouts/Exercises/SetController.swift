@@ -21,7 +21,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     var lastResults: [Int64]?
     
-    var total_volume: Int64?
+    public var total_volume: Int64?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -445,7 +445,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         totalVolume.text = "Total Volume -- \(volume)"
         
         print(volume)
-        print(total_volume)
+        print(total_volume ?? 9999)
         
         if volume > total_volume ?? 9999  {
             didImprove(exercise: exercise!, improved: true)
