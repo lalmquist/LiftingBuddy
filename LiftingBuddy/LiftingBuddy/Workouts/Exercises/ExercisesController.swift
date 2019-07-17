@@ -100,8 +100,24 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         tableView.register(ExerciseCell.self, forCellReuseIdentifier: cellId)
         
         setupPlusButtonInNavBar(selector: #selector(handleAdd))
+        
+//        self.tableView.isEditing = true
 
     }
+    
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+//        return .none
+//    }
+//
+//    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+//        return false
+//    }
+    
+//    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        let movedObject = self.allExercises[sourceIndexPath.row]
+//        allExercises.remove(at: sourceIndexPath.row)
+//        allExercises.insert(movedObject, at: destinationIndexPath.row)
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
