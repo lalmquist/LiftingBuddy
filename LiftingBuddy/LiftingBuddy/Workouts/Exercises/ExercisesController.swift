@@ -137,7 +137,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
             
             print(indexPath.row)
             self.allExercises.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.deleteRows(at: [indexPath], with: .middle)
 //            self.tableView.deleteSections([indexPath.section], with: .automatic)
             
             // delete the company from Core Data
@@ -159,10 +159,3 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         return 100
     }
 }
-
-
-
-
-
-
-

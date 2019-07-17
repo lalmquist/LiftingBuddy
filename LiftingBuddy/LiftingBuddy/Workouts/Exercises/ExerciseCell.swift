@@ -23,6 +23,11 @@ class ExerciseCell: UITableViewCell {
             nameFoundedDateLabel.text = "\(exercise?.name ?? "")"
             setLabel.text = "\(numSets ?? 0) Sets"
             }
+            if exercise?.improved == true {
+                improvedLabel.text = "improved!"
+            } else {
+                improvedLabel.text = ""
+            }
         }
         }
     
@@ -46,6 +51,13 @@ class ExerciseCell: UITableViewCell {
         return label
     }()
     
+    let improvedLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -62,6 +74,12 @@ class ExerciseCell: UITableViewCell {
         setLabel.topAnchor.constraint(equalTo: nameFoundedDateLabel.bottomAnchor, constant: -45).isActive = true
         setLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         setLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        addSubview(improvedLabel)
+        improvedLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        improvedLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        improvedLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

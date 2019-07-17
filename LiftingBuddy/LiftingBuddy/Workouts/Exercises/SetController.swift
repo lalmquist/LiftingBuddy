@@ -21,6 +21,8 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     var lastResults: [Int64]?
     
+    var total_volume: Int64?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -208,11 +210,11 @@ class SetController: UITableViewController, UITextFieldDelegate {
         if lastResults.count > 1 {
             let part1 = (lastResults.count/2)
             let value = 80 + (part1*20)
-            print("1",value)
+//            print("1",value)
             return CGFloat(value)
         } else {
             let value = 0
-            print("2",value)
+//            print("2",value)
             return CGFloat(value)
         }
     }
@@ -233,6 +235,9 @@ class SetController: UITableViewController, UITextFieldDelegate {
         } else {
             dataString = "No Workouts"
         }
+        
+        total_volume = totalVolume
+        
         let footerTitle = UILabel()
         
         let dateFormatter = DateFormatter()
@@ -357,6 +362,25 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let sum = volArray.reduce(0, +)
         return sum
     }
+    
+    func didImprove(exercise: Exercise, improved: Bool) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        if improved == true {
+            exercise.improved = true
+        } else {
+            exercise.improved = false
+        }
+        
+        do {
+            try context.save()
+            // save succeeds
+            
+        } catch let err {
+            print("Failed to update exercise:", err)
+            
+        }
+    }
   
     
     let totalVolume: UILabel = {
@@ -419,6 +443,17 @@ class SetController: UITableViewController, UITextFieldDelegate {
         totalVolume.textAlignment = .center
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
+        
+        print(volume)
+        print(total_volume)
+        
+        if volume > total_volume ?? 9999  {
+            didImprove(exercise: exercise!, improved: true)
+        } else {
+            didImprove(exercise: exercise!, improved: false)
+        }
+        
+        print(exercise?.improved ?? false)
         
     }
     

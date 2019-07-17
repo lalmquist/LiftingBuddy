@@ -34,7 +34,7 @@ extension WorkoutsController {
                 print("Attempting to delete workout:", workout.name ?? "")
                 
                 self.workouts.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.tableView.deleteRows(at: [indexPath], with: .middle)
                 
                 // delete the company from Core Data
                 let context = CoreDataManager.shared.persistentContainer.viewContext
