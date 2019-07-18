@@ -56,7 +56,7 @@ class ExerciseCell: UITableViewCell {
     
     let improvedLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 35)
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,7 +79,7 @@ class ExerciseCell: UITableViewCell {
         setLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         addSubview(improvedLabel)
-        improvedLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        improvedLabel.topAnchor.constraint(equalTo: nameFoundedDateLabel.bottomAnchor, constant: -45).isActive = true
         improvedLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         improvedLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
