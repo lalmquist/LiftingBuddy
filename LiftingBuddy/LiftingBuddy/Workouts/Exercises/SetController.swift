@@ -43,6 +43,8 @@ class SetController: UITableViewController, UITextFieldDelegate {
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
+        tableView.indicatorStyle = .white
+        
         repsTextField.delegate = self
         
         weightTextField.delegate = self

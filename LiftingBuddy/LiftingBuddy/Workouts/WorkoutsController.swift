@@ -174,6 +174,8 @@ class WorkoutsController: UITableViewController {
         tableView.separatorColor = .white
         tableView.tableFooterView = UIView() // blank UIView
         
+        tableView.indicatorStyle = .white
+        
         tableView.register(WorkoutCell.self, forCellReuseIdentifier: "cellId")
         
         setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
@@ -228,11 +230,4 @@ class WorkoutsController: UITableViewController {
     }
     
 }
-
-
-
-
-
-
-
 

@@ -97,6 +97,8 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         
         tableView.backgroundColor = UIColor.black
         
+        tableView.indicatorStyle = .white
+        
         tableView.register(ExerciseCell.self, forCellReuseIdentifier: cellId)
         
         setupPlusButtonInNavBar(selector: #selector(handleAdd))
