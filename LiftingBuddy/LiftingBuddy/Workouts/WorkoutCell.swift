@@ -15,9 +15,28 @@ class WorkoutCell: UITableViewCell {
             
             let numExercises = workout?.exercise?.count
             
+            var impCount = 0
+            
+            for workoutExercises in workout!.exercise! {
+                if (workoutExercises as! Exercise).improved == true {
+                    impCount = impCount + 1
+                }
+            }
+            
+            improvedLabel.text = "\(impCount)/\(numExercises ?? 0) ✅"
+            
             nameFoundedDateLabel.text = workout?.name
             
-            NumExercisesLabel.text = "\(numExercises ?? 0) Exercises"
+            if numExercises == 1 {
+                NumExercisesLabel.text = "\(numExercises ?? 0) Exercise"
+                NumExercisesLabel.textColor = .white
+            } else if numExercises == 0 {
+                NumExercisesLabel.text = "No Exercises"
+                NumExercisesLabel.textColor = .orange
+            } else {
+                NumExercisesLabel.text = "\(numExercises ?? 0) Exercises"
+                NumExercisesLabel.textColor = .white
+            }
             
             if let name = workout?.name, let founded = workout?.date {
                 let dateFormatter = DateFormatter()
@@ -48,6 +67,14 @@ class WorkoutCell: UITableViewCell {
         return label
     }()
     
+    let improvedLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -64,6 +91,12 @@ class WorkoutCell: UITableViewCell {
         NumExercisesLabel.topAnchor.constraint(equalTo: nameFoundedDateLabel.bottomAnchor, constant: -45).isActive = true
 //        NumExercisesLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
 //        NumExercisesLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        addSubview(improvedLabel)
+        improvedLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        improvedLabel.topAnchor.constraint(equalTo: nameFoundedDateLabel.bottomAnchor, constant: -45).isActive = true
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

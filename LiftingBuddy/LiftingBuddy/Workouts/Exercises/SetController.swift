@@ -392,7 +392,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         print(localvol)
         print(total_volume ?? 9999)
         
-        if localvol > total_volume ?? 9999  {
+        if localvol >= total_volume ?? 9999  {
             didImprove(exercise: exercise!, improved: true)
         } else {
             didImprove(exercise: exercise!, improved: false)
@@ -401,7 +401,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
         print(exercise?.improved ?? false)
     }
   
-    
     let totalVolume: UILabel = {
         let displayString = UILabel()
         displayString.textColor = .white
