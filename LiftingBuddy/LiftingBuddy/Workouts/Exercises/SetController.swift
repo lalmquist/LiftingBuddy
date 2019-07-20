@@ -209,11 +209,13 @@ class SetController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         let lastResults = getLastExerciseData()
         if lastResults.count > 1 {
+            didBefore(did_before: true)
             let part1 = (lastResults.count/2)
             let value = 80 + (part1*20)
 //            print("1",value)
             return CGFloat(value)
         } else {
+            didBefore(did_before: false)
             let value = 0
 //            print("2",value)
             return CGFloat(value)
@@ -386,11 +388,30 @@ class SetController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    func didBefore(did_before: Bool) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        if did_before == true {
+            exercise?.donebefore = true
+        } else {
+            exercise?.donebefore = false
+        }
+        
+        do {
+            try context.save()
+            // save succeeds
+            
+        } catch let err {
+            print("Failed to update exercise:", err)
+            
+        }
+    }
+    
     func checkImprove() {
         
         let localvol = getVolume()
-        print(localvol)
-        print(total_volume ?? 9999)
+//        print(localvol)
+//        print(total_volume ?? 9999)
         
         if localvol >= total_volume ?? 9999  {
             didImprove(exercise: exercise!, improved: true)

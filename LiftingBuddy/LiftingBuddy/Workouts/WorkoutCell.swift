@@ -16,14 +16,23 @@ class WorkoutCell: UITableViewCell {
             let numExercises = workout?.exercise?.count
             
             var impCount = 0
+            var doneBeforeCnt = 0
             
             for workoutExercises in workout!.exercise! {
                 if (workoutExercises as! Exercise).improved == true {
                     impCount = impCount + 1
                 }
+                if (workoutExercises as! Exercise).donebefore == true {
+                    doneBeforeCnt = doneBeforeCnt + 1
+                }
             }
             
-            improvedLabel.text = "\(impCount)/\(numExercises ?? 0) ✅"
+            if doneBeforeCnt > 0 {
+                improvedLabel.text = "\(impCount)/\(doneBeforeCnt) ✅"
+            } else {
+                improvedLabel.text = ""
+            }
+            
             
             nameFoundedDateLabel.text = workout?.name
             
