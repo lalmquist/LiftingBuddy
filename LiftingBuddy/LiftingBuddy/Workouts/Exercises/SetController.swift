@@ -13,6 +13,14 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     var exercise: Exercise?
     
+    var footerTitle: UILabel?
+    var footerView: UIView?
+    
+    var loaded: Bool = false
+    
+    var heightValue: Int = 0
+    var widthValue: Int = 0
+    
     var allSets = [[Set]]()
     
     var volume: Int64?
@@ -25,6 +33,8 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loaded = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         
@@ -51,7 +61,12 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         fetchSets()
         
+        footerTitle = getFooterTitleInfo()
+        footerView = getFooterViewInfo()
+       
         setupUI()
+        
+        loaded = true
         
     }
     
@@ -171,6 +186,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         } else {
             didAddSet(set: set.0!)
         }
+        
         setupUI()
         checkImprove()
         view.endEditing(true)
@@ -190,45 +206,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
         checkImprove()
         return 100
     }
-    
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        var lastResults = getLastExerciseData()
-//        var i = 0
-//        var dataString = ""
-//        var totalVolume = Int64(0)
-//        if lastResults.count > 1 {
-//            while i < lastResults.count {
-//                let volume = Int64(lastResults[i]*lastResults[i+1])
-//                totalVolume = totalVolume + Int64(volume)
-//                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
-//                i = i + 2
-//            }
-//        } else {
-//            dataString = "No Workouts"
-//        }
-//
-//        total_volume = totalVolume
-//
-//        let footerTitle = UILabel()
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MM/dd/yyyy"
-//        let formattedDatestring = dateFormatter.string(from: lastDate!)
-//
-//
-//        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
-//        footerTitle.textColor = .white
-//        footerTitle.textAlignment = .center
-//        footerTitle.numberOfLines = (lastResults.count/2) + 4
-//        footerTitle.lineBreakMode = .byWordWrapping
-//        footerTitle.backgroundColor = .custGreen
-//        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
-//
-//        checkImprove()
-//
-//        return footerTitle
-//    }
-    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allSets[0].count
@@ -396,6 +373,73 @@ class SetController: UITableViewController, UITextFieldDelegate {
         return displayString
     }()
     
+    func getFooterViewInfo() -> UIView {
+
+        let widthValue = Int(view.frame.width)
+        let last_Results = getLastExerciseData()
+        if last_Results.count > 1 {
+            didBefore(did_before: true)
+            let part1 = (last_Results.count/2)
+            let height_Value = 80 + (part1*20)
+            heightValue = height_Value
+        } else {
+            didBefore(did_before: false)
+            let height_Value = 0
+            heightValue = height_Value
+        }
+        
+        let footerView = UIView(frame: CGRect(x: 0,y: 0, width: widthValue, height: heightValue))
+        footerView.backgroundColor = .custGreen
+        tableView.tableFooterView = footerView
+        return footerView
+        
+    }
+    
+    
+    func getFooterTitleInfo() -> UILabel {
+    
+        let footerTitle = UILabel()
+    
+        var lastResults = getLastExerciseData()
+        var i = 0
+        var dataString = ""
+        var totalVolume = Int64(0)
+        if lastResults.count > 1 {
+            while i < lastResults.count {
+                let volume = Int64(lastResults[i]*lastResults[i+1])
+                totalVolume = totalVolume + Int64(volume)
+                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
+                i = i + 2
+            }
+        } else {
+            dataString = "No Workouts"
+        }
+    
+        total_volume = totalVolume
+    
+        footerTitle.translatesAutoresizingMaskIntoConstraints = false
+    
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDatestring = dateFormatter.string(from: lastDate ?? Date())
+    
+        if lastResults.count > 1 {
+            footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
+        } else {
+            footerTitle.text = ""
+        }
+    
+        footerTitle.textColor = .white
+        footerTitle.textAlignment = .center
+        footerTitle.numberOfLines = (lastResults.count/2) + 4
+        footerTitle.lineBreakMode = .byWordWrapping
+        footerTitle.backgroundColor = .custGreen
+        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        
+        return footerTitle
+        }
+    
     func setupUI() {
         
         view.addSubview(fillLabel)
@@ -450,63 +494,12 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
         
-        var heightValue: Int = 0
-        let widthValue = Int(view.frame.width)
-        let last_Results = getLastExerciseData()
-        if last_Results.count > 1 {
-            didBefore(did_before: true)
-            let part1 = (last_Results.count/2)
-            let height_Value = 80 + (part1*20)
-            heightValue = height_Value
-        } else {
-            didBefore(did_before: false)
-            let height_Value = 0
-            heightValue = height_Value
-        }
-        
-        let footerView = UIView(frame: CGRect(x: 0,y: 0, width: widthValue, height: heightValue))
-        footerView.backgroundColor = .custGreen
-        tableView.tableFooterView = footerView
-        
-        var lastResults = getLastExerciseData()
-        var i = 0
-        var dataString = ""
-        var totalVolume = Int64(0)
-        if lastResults.count > 1 {
-            while i < lastResults.count {
-                let volume = Int64(lastResults[i]*lastResults[i+1])
-                totalVolume = totalVolume + Int64(volume)
-                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
-                        i = i + 2
-            }
-        } else {
-            dataString = "No Workouts"
-        }
-        
-        total_volume = totalVolume
-        
-        let footerTitle = UILabel()
-        footerTitle.translatesAutoresizingMaskIntoConstraints = false
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let formattedDatestring = dateFormatter.string(from: lastDate ?? Date())
-        
-        if lastResults.count > 1 {
-            footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
-        } else {
-            footerTitle.text = ""
-        }
-        footerTitle.textColor = .white
-        footerTitle.textAlignment = .center
-        footerTitle.numberOfLines = (lastResults.count/2) + 4
-        footerTitle.lineBreakMode = .byWordWrapping
-        footerTitle.backgroundColor = .custGreen
-        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        view.addSubview(footerTitle)
-        footerTitle.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 3).isActive = true
-        footerTitle.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+//        let footerTitle = getFooterTitleInfo()
+//        let footerView = getFooterViewInfo()
+
+        view.addSubview(footerTitle!)
+        footerTitle!.topAnchor.constraint(equalTo: footerView!.topAnchor, constant: 3).isActive = true
+        footerTitle!.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
 
     }
     
