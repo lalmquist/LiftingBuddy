@@ -12,7 +12,7 @@ import CoreData
 class SetController: UITableViewController, UITextFieldDelegate {
     
     var exercise: Exercise?
-       
+    
     var allSets = [[Set]]()
     
     var volume: Int64?
@@ -40,7 +40,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         tableView.backgroundColor = UIColor.black
         
         setupPlusButtonInNavBar(selector: #selector(createNewSet))
-
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
         tableView.indicatorStyle = .white
@@ -61,25 +61,24 @@ class SetController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-  
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-            let set = allSets[0][indexPath.row]
-            let inpIndex = Int16(indexPath.row)
+        let set = allSets[0][indexPath.row]
+        let inpIndex = Int16(indexPath.row)
         
-            set.exercise = exercise
-            let volume = Int64(set.reps) * Int64(set.weight)
+        set.exercise = exercise
+        let volume = Int64(set.reps) * Int64(set.weight)
+
+        let label = "\(set.weight) x \(set.reps) -- Total: \(volume) lbs"
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.text = label
+        cell.backgroundColor = UIColor.black
+        cell.textLabel?.textColor = .white
+        cell.selectionStyle = .none
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         
-//            let label = "weight: \(set.weight) x reps: \(set.reps) -- Total: \(volume) lbs"
-            let label = "\(set.weight) x \(set.reps) -- Total: \(volume) lbs"
-            cell.textLabel?.textAlignment = .center
-            cell.textLabel?.text = label
-            cell.backgroundColor = UIColor.black
-            cell.textLabel?.textColor = .white
-            cell.selectionStyle = .none
-            cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 24)
-        
-            updateSetIndex(set: set, intIndex: inpIndex)
+        updateSetIndex(set: set, intIndex: inpIndex)
         
         return cell
         
@@ -92,7 +91,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         do {
             try context.save()
-            // save succeeds
             
         } catch let err {
             print("Failed to update set:", err)
@@ -122,7 +120,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
                     }
                     if exer.name == exercise?.name && preWorkout == true && found == false {
                         found = true
-//                        print("++++++++++ FOUND ++++++++++")
+
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         var results = [Int64]()
@@ -130,12 +128,12 @@ class SetController: UITableViewController, UITextFieldDelegate {
                             results.append(items.weight)
                             results.append(items.reps)
                         }
-//                        print("+++++++++++++++++++++++++++")
+
                         return results
                     }
                 }
             }
-//            print("======= DONE =======")
+
             
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
@@ -152,34 +150,23 @@ class SetController: UITableViewController, UITextFieldDelegate {
         guard let workoutSets = exercise?.set?.allObjects as? [Set] else { return }
         
         allSets = []
-        // let's use my array and loop to filter instead
-        
+
         allSets.append(workoutSets)
         
         allSets[0].sort {
             $0.index < $1.index
         }
-
+        
     }
     
     @objc private func createNewSet() {
-//        print("Trying to add a set")
-        
-//        let context = CoreDataManager.shared.persistentContainer.viewContext
-//
-//        let set = NSEntityDescription.insertNewObject(forEntityName: "Set", into: context)
-        
         let intReps = Int64(repsTextField.text ?? "0")
         let intWeight = Int64(weightTextField.text ?? "0")
         
         let set = CoreDataManager.shared.createSet(setReps: intReps ?? 0, setWeight: intWeight ?? 0)
-        
-//        set.setValue(Int16(nameTextField.text ?? "-99"), forKey: "reps")
-//        set.setValue(Int16(nameTextField.text ?? "-99"), forKey: "weight")
 
         if let error = set.1 {
-            // is where you present an error modal of some kind
-            // perhaps use a UIAlertController to show your error message
+
             print(error)
         } else {
             didAddSet(set: set.0!)
@@ -196,72 +183,51 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-//        label.text = "SECTION HEADER"
-//        label.backgroundColor = UIColor.custBlue
-//        label.textColor = UIColor.custBlue
-//        label.font = UIFont.boldSystemFont(ofSize: 16)
-//        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        checkImprove()
         return 100
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        let lastResults = getLastExerciseData()
-        if lastResults.count > 1 {
-            didBefore(did_before: true)
-            let part1 = (lastResults.count/2)
-            let value = 80 + (part1*20)
-//            print("1",value)
-            return CGFloat(value)
-        } else {
-            didBefore(did_before: false)
-            let value = 0
-//            print("2",value)
-            return CGFloat(value)
-        }
-    }
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var lastResults = getLastExerciseData()
-        var i = 0
-        var dataString = ""
-        var totalVolume = Int64(0)
-
-//        print(lastResults.count)
-        if lastResults.count > 1 {
-            while i < lastResults.count {
-                let volume = Int64(lastResults[i]*lastResults[i+1])
-                totalVolume = totalVolume + Int64(volume)
-                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
-                i = i + 2
-            }
-        } else {
-            dataString = "No Workouts"
-        }
-        
-        total_volume = totalVolume
-        
-        let footerTitle = UILabel()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let formattedDatestring = dateFormatter.string(from: lastDate!)
-        
-        
-        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
-        footerTitle.textColor = .white
-        footerTitle.textAlignment = .center
-        footerTitle.numberOfLines = (lastResults.count/2) + 4
-        footerTitle.lineBreakMode = .byWordWrapping
-        footerTitle.backgroundColor = .custGreen
-        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        checkImprove()
-
-        return footerTitle
-    }
+//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        var lastResults = getLastExerciseData()
+//        var i = 0
+//        var dataString = ""
+//        var totalVolume = Int64(0)
+//        if lastResults.count > 1 {
+//            while i < lastResults.count {
+//                let volume = Int64(lastResults[i]*lastResults[i+1])
+//                totalVolume = totalVolume + Int64(volume)
+//                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
+//                i = i + 2
+//            }
+//        } else {
+//            dataString = "No Workouts"
+//        }
+//
+//        total_volume = totalVolume
+//
+//        let footerTitle = UILabel()
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "MM/dd/yyyy"
+//        let formattedDatestring = dateFormatter.string(from: lastDate!)
+//
+//
+//        footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
+//        footerTitle.textColor = .white
+//        footerTitle.textAlignment = .center
+//        footerTitle.numberOfLines = (lastResults.count/2) + 4
+//        footerTitle.lineBreakMode = .byWordWrapping
+//        footerTitle.backgroundColor = .custGreen
+//        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
+//
+//        checkImprove()
+//
+//        return footerTitle
+//    }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -277,9 +243,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
             print([indexPath])
             self.allSets[indexPath.section].remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//            self.tableView.deleteSections([indexPath.section], with: .automatic)
             
-            // delete the set from Core Data
             let context = CoreDataManager.shared.persistentContainer.viewContext
             
             context.delete(set)
@@ -412,18 +376,19 @@ class SetController: UITableViewController, UITextFieldDelegate {
     func checkImprove() {
         
         let localvol = getVolume()
-//        print(localvol)
-//        print(total_volume ?? 9999)
         
-        if localvol >= total_volume ?? 9999  {
+//        print(localvol)
+//        print(total_volume)
+
+        if localvol >= total_volume ?? 9999 && total_volume != 0 {
             didImprove(exercise: exercise!, improved: true)
         } else {
             didImprove(exercise: exercise!, improved: false)
         }
         
-        print(exercise?.improved ?? false)
+//        print(exercise?.improved ?? false)
     }
-  
+    
     let totalVolume: UILabel = {
         let displayString = UILabel()
         displayString.textColor = .white
@@ -465,7 +430,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         repsLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         repsLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         repsLabel.font = UIFont.boldSystemFont(ofSize: 30)
-
+        
         view.addSubview(repsTextField)
         repsTextField.backgroundColor = .white
         repsTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -484,6 +449,64 @@ class SetController: UITableViewController, UITextFieldDelegate {
         totalVolume.textAlignment = .center
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
+        
+        var heightValue: Int = 0
+        let widthValue = Int(view.frame.width)
+        let last_Results = getLastExerciseData()
+        if last_Results.count > 1 {
+            didBefore(did_before: true)
+            let part1 = (last_Results.count/2)
+            let height_Value = 80 + (part1*20)
+            heightValue = height_Value
+        } else {
+            didBefore(did_before: false)
+            let height_Value = 0
+            heightValue = height_Value
+        }
+        
+        let footerView = UIView(frame: CGRect(x: 0,y: 0, width: widthValue, height: heightValue))
+        footerView.backgroundColor = .custGreen
+        tableView.tableFooterView = footerView
+        
+        var lastResults = getLastExerciseData()
+        var i = 0
+        var dataString = ""
+        var totalVolume = Int64(0)
+        if lastResults.count > 1 {
+            while i < lastResults.count {
+                let volume = Int64(lastResults[i]*lastResults[i+1])
+                totalVolume = totalVolume + Int64(volume)
+                dataString = dataString + "\(String(lastResults[i])) x \(String(lastResults[i+1])) -- \(volume)\n"
+                        i = i + 2
+            }
+        } else {
+            dataString = "No Workouts"
+        }
+        
+        total_volume = totalVolume
+        
+        let footerTitle = UILabel()
+        footerTitle.translatesAutoresizingMaskIntoConstraints = false
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDatestring = dateFormatter.string(from: lastDate ?? Date())
+        
+        if lastResults.count > 1 {
+            footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
+        } else {
+            footerTitle.text = ""
+        }
+        footerTitle.textColor = .white
+        footerTitle.textAlignment = .center
+        footerTitle.numberOfLines = (lastResults.count/2) + 4
+        footerTitle.lineBreakMode = .byWordWrapping
+        footerTitle.backgroundColor = .custGreen
+        footerTitle.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        view.addSubview(footerTitle)
+        footerTitle.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 3).isActive = true
+        footerTitle.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
 
     }
     
