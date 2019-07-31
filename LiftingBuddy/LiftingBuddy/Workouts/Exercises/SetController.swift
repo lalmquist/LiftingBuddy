@@ -5,7 +5,6 @@
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
 //
-
 import UIKit
 import CoreData
 
@@ -15,8 +14,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     var footerTitle: UILabel?
     var footerView: UIView?
-    
-    var loaded: Bool = false
     
     var heightValue: Int = 0
     var widthValue: Int = 0
@@ -33,8 +30,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loaded = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         
@@ -63,10 +58,8 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         footerTitle = getFooterTitleInfo()
         footerView = getFooterViewInfo()
-       
-        setupUI()
         
-        loaded = true
+        setupUI()
         
     }
     
@@ -84,7 +77,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         set.exercise = exercise
         let volume = Int64(set.reps) * Int64(set.weight)
-
+        
         let label = "\(set.weight) x \(set.reps) -- Total: \(volume) lbs"
         cell.textLabel?.textAlignment = .center
         cell.textLabel?.text = label
@@ -135,7 +128,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
                     }
                     if exer.name == exercise?.name && preWorkout == true && found == false {
                         found = true
-
+                        
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         var results = [Int64]()
@@ -143,12 +136,12 @@ class SetController: UITableViewController, UITextFieldDelegate {
                             results.append(items.weight)
                             results.append(items.reps)
                         }
-
+                        
                         return results
                     }
                 }
             }
-
+            
             
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
@@ -165,7 +158,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         guard let workoutSets = exercise?.set?.allObjects as? [Set] else { return }
         
         allSets = []
-
+        
         allSets.append(workoutSets)
         
         allSets[0].sort {
@@ -179,9 +172,9 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let intWeight = Int64(weightTextField.text ?? "0")
         
         let set = CoreDataManager.shared.createSet(setReps: intReps ?? 0, setWeight: intWeight ?? 0)
-
+        
         if let error = set.1 {
-
+            
             print(error)
         } else {
             didAddSet(set: set.0!)
@@ -210,7 +203,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allSets[0].count
     }
-
+    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
@@ -270,7 +263,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         fill_Label.translatesAutoresizingMaskIntoConstraints = false
         return fill_Label
     }()
-
+    
     let weightTextField: UITextField = {
         let textField = UITextField()
         textField.textColor = .black
@@ -354,16 +347,15 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         let localvol = getVolume()
         
-//        print(localvol)
-//        print(total_volume)
-
+        //        print(localvol)
+        //        print(total_volume)
         if localvol >= total_volume ?? 9999 && total_volume != 0 {
             didImprove(exercise: exercise!, improved: true)
         } else {
             didImprove(exercise: exercise!, improved: false)
         }
         
-//        print(exercise?.improved ?? false)
+        //        print(exercise?.improved ?? false)
     }
     
     let totalVolume: UILabel = {
@@ -374,7 +366,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
     }()
     
     func getFooterViewInfo() -> UIView {
-
+        
         let widthValue = Int(view.frame.width)
         let last_Results = getLastExerciseData()
         if last_Results.count > 1 {
@@ -397,9 +389,9 @@ class SetController: UITableViewController, UITextFieldDelegate {
     
     
     func getFooterTitleInfo() -> UILabel {
-    
+        
         let footerTitle = UILabel()
-    
+        
         var lastResults = getLastExerciseData()
         var i = 0
         var dataString = ""
@@ -414,21 +406,21 @@ class SetController: UITableViewController, UITextFieldDelegate {
         } else {
             dataString = "No Workouts"
         }
-    
+        
         total_volume = totalVolume
-    
+        
         footerTitle.translatesAutoresizingMaskIntoConstraints = false
-    
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let formattedDatestring = dateFormatter.string(from: lastDate ?? Date())
-    
+        
         if lastResults.count > 1 {
             footerTitle.text = "The last time you did - \(exercise?.name ?? "Not Found") \n\(String(formattedDatestring))\n\nTotal Volume -- \(totalVolume) lbs\n\(dataString)"
         } else {
             footerTitle.text = ""
         }
-    
+        
         footerTitle.textColor = .white
         footerTitle.textAlignment = .center
         footerTitle.numberOfLines = (lastResults.count/2) + 4
@@ -438,7 +430,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         
         return footerTitle
-        }
+    }
     
     func setupUI() {
         
@@ -494,13 +486,12 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
         
-//        let footerTitle = getFooterTitleInfo()
-//        let footerView = getFooterViewInfo()
-
+        //        let footerTitle = getFooterTitleInfo()
+        //        let footerView = getFooterViewInfo()
         view.addSubview(footerTitle!)
         footerTitle!.topAnchor.constraint(equalTo: footerView!.topAnchor, constant: 3).isActive = true
         footerTitle!.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-
+        
     }
     
 }

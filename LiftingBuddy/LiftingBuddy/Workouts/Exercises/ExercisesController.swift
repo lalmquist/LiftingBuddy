@@ -103,23 +103,33 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         
         setupPlusButtonInNavBar(selector: #selector(handleAdd))
         
-//        self.tableView.isEditing = true
+        let tap: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(editCells))
+        
+        view.addGestureRecognizer(tap)
 
     }
     
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .none
-//    }
-//
-//    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-//        return false
-//    }
+    @objc func editCells() {
+        self.tableView.isEditing = true
+    }
     
-//    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        let movedObject = self.allExercises[sourceIndexPath.row]
-//        allExercises.remove(at: sourceIndexPath.row)
-//        allExercises.insert(movedObject, at: destinationIndexPath.row)
-//    }
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.allExercises[sourceIndexPath.row]
+        allExercises.remove(at: sourceIndexPath.row)
+        allExercises.insert(movedObject, at: destinationIndexPath.row)
+        updateExerciseIndex(exercise: self.allExercises[sourceIndexPath.row], intIndex: Int16(destinationIndexPath.row))
+        print(destinationIndexPath.row)
+        self.tableView.isEditing = false
+        tableView.reloadData()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
