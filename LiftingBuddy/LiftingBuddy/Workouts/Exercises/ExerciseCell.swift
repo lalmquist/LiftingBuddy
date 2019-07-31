@@ -26,10 +26,11 @@ class ExerciseCell: UITableViewCell {
             setLabel.text = "\(numSets ?? 0) Sets"
             setLabel.textColor = .white
             }
+            improvedLabel.text = "✅"
             if exercise?.improved == true {
-                improvedLabel.text = "✅"
+                improvedLabel.isHidden = false
             } else {
-                improvedLabel.text = ""
+                improvedLabel.isHidden = true
             }
         }
         }

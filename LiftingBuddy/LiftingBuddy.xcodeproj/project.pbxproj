@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CE2049C022B8B09C0019CF7D /* SetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2049BF22B8B09C0019CF7D /* SetCell.swift */; };
+		CE6A578F22F13D0900A7B659 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A578E22F13D0900A7B659 /* DataController.swift */; };
+		CE6A579122F13F6400A7B659 /* DetailDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A579022F13F6400A7B659 /* DetailDataView.swift */; };
 		CE830D7022B7039B00A85D25 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE830D6F22B7039B00A85D25 /* ExerciseCell.swift */; };
 		CEEC902422A4B3C100D92AA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEC902322A4B3C100D92AA7 /* AppDelegate.swift */; };
 		CEEC902922A4B3C100D92AA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEEC902722A4B3C100D92AA7 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 
 /* Begin PBXFileReference section */
 		CE2049BF22B8B09C0019CF7D /* SetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCell.swift; sourceTree = "<group>"; };
+		CE6A578E22F13D0900A7B659 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		CE6A579022F13F6400A7B659 /* DetailDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataView.swift; sourceTree = "<group>"; };
 		CE830D6F22B7039B00A85D25 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
 		CEEC902022A4B3C100D92AA7 /* LiftingBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftingBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEC902322A4B3C100D92AA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				CEEC904922A4B63D00D92AA7 /* WorkoutsController+CreateWorkout.swift */,
 				CEEC904B22A4B66600D92AA7 /* WorkoutsController+UITableView.swift */,
 				CEEC904D22A4B67700D92AA7 /* CreateWorkoutController.swift */,
+				CE6A578E22F13D0900A7B659 /* DataController.swift */,
+				CE6A579022F13F6400A7B659 /* DetailDataView.swift */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
@@ -211,7 +217,9 @@
 				CEEC904E22A4B67700D92AA7 /* CreateWorkoutController.swift in Sources */,
 				CEEC904622A4B5C900D92AA7 /* WorkoutsController.swift in Sources */,
 				CEEC904222A4B56200D92AA7 /* ExercisesController.swift in Sources */,
+				CE6A578F22F13D0900A7B659 /* DataController.swift in Sources */,
 				CEEC902422A4B3C100D92AA7 /* AppDelegate.swift in Sources */,
+				CE6A579122F13F6400A7B659 /* DetailDataView.swift in Sources */,
 				CEEC904822A4B5FC00D92AA7 /* WorkoutCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

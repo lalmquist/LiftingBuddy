@@ -178,7 +178,8 @@ class WorkoutsController: UITableViewController {
         
         tableView.register(WorkoutCell.self, forCellReuseIdentifier: "cellId")
         
-        setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
+//        setupPlusButtonInNavBar(selector: #selector(handleAddExercise))
+        setupPlusButtonInNavBar(selector: #selector(openData))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -215,15 +216,25 @@ class WorkoutsController: UITableViewController {
         
     }
     
-    @objc func handleAddCompany() {
-        print("Adding company..")
+    @objc func handleAddExercise() {
+        print("Adding exercise..")
         
         let createWorkoutController = CreateWorkoutController()
-        //        createCompanyController.view.backgroundColor = .green
         
         let navController = CustomNavigationController(rootViewController: createWorkoutController)
         
         createWorkoutController.delegate = self
+        
+        present(navController, animated: true, completion: nil)
+        
+    }
+    
+    @objc func openData() {
+        print("OpeningData..")
+        
+        let dataController = DataController()
+        
+        let navController = UINavigationController(rootViewController: dataController)
         
         present(navController, animated: true, completion: nil)
         
