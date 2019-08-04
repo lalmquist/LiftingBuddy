@@ -178,8 +178,8 @@ class WorkoutsController: UITableViewController {
         
         tableView.register(WorkoutCell.self, forCellReuseIdentifier: "cellId")
         
-//        setupPlusButtonInNavBar(selector: #selector(handleAddExercise))
-        setupPlusButtonInNavBar(selector: #selector(openData))
+        setupPlusButtonInNavBar(selector: #selector(handleAddExercise))
+        setupDataButtonInNavBar(selector: #selector(openData))
     }
     
     override func viewDidAppear(_ animated: Bool) {

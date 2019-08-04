@@ -38,7 +38,7 @@ class DataController: UITableViewController {
         } catch let fetchErr {
             print("Failed to fetch exercises:", fetchErr)
         }
-        print(allExerciseNames.count)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

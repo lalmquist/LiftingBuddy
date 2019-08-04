@@ -486,8 +486,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
         let volume = getVolume()
         totalVolume.text = "Total Volume -- \(volume)"
         
-        //        let footerTitle = getFooterTitleInfo()
-        //        let footerView = getFooterViewInfo()
         view.addSubview(footerTitle!)
         footerTitle!.topAnchor.constraint(equalTo: footerView!.topAnchor, constant: 3).isActive = true
         footerTitle!.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true

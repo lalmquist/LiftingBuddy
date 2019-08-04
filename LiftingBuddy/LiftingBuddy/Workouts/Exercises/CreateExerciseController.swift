@@ -36,7 +36,7 @@ class CreateExerciseController: UITableViewController {
                     if (allExerciseNames.contains(exer.name ?? "")) {
 //                        print("none")
                     } else {
-                        print(exer.name!)
+//                        print(exer.name!)
                         allExerciseNames.append(exer.name ?? "")
                     }
                 }
@@ -44,7 +44,7 @@ class CreateExerciseController: UITableViewController {
         } catch let fetchErr {
             print("Failed to fetch exercises:", fetchErr)
         }
-        print(allExerciseNames.count)
+//        print(allExerciseNames.count)
     }
     
     let nameLabel: UILabel = {
@@ -128,7 +128,6 @@ class CreateExerciseController: UITableViewController {
         cell.textLabel?.text = allExerciseNames[indexPath.row]
         cell.textLabel?.textColor = .white
         cell.backgroundColor = .black
-//        cell.selectionStyle = .none
         
         return cell
     }
@@ -163,7 +162,6 @@ class CreateExerciseController: UITableViewController {
     }
     
     private func setupUI() {
-//        _ = setupLightBlueBackgroundView(height: 150)
         
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
