@@ -89,6 +89,8 @@ class CreateExerciseController: UITableViewController {
         
         tableView.backgroundColor = UIColor.black
         
+        tableView.indicatorStyle = .white
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         setupUI()
