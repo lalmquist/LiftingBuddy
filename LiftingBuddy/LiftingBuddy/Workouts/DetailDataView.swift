@@ -167,19 +167,20 @@ class DetailDataController: UIViewController {
         var i = 0
         var setVolume = [Int64]()
         
-        var returnResults = [Int64]()
-        
-        if dataSet.count > 1 {
-            while i < dataSet.count {
+        while i < dataSet.count {
                 
-                let volumeData = dataSet[i] * dataSet[i+1]
-                setVolume.append(volumeData)
+            let volumeData = dataSet[i] * dataSet[i+1]
+            setVolume.append(volumeData)
                 
-                i = i + 2
-            }
+            i = i + 2
         }
         
+        print(dataSet)
+        
         let maxVolume = setVolume.max()
+        
+        print(maxVolume)
+        print(setVolume)
         
         var j = 0
         var foundIndex = 0
@@ -187,21 +188,20 @@ class DetailDataController: UIViewController {
         for items in setVolume {
             
             if items == maxVolume {
+                print(items)
                 foundIndex = j
-                
-            } else {
                 j = j + 1
+                
             }
         }
         
+        print(foundIndex)
+        
         let dataSetIndex = foundIndex * 2
+
+        let total = dataSet[dataSetIndex]*dataSet[dataSetIndex + 1]
         
-        returnResults.append(dataSet[dataSetIndex])
-        returnResults.append(dataSet[dataSetIndex + 1])
-        
-        let total = returnResults[0]*returnResults[1]
-        
-        let finalString = String(returnResults[0]) + " x " + String(returnResults[1]) + " -- Total: " + String(total) + " lbs"
+        let finalString = String(dataSet[dataSetIndex]) + " x " + String(dataSet[dataSetIndex + 1]) + " -- Total: " + String(total) + " lbs"
         
         found_index = foundIndex
         
@@ -287,7 +287,7 @@ class DetailDataController: UIViewController {
         max_weight = weightMax
         max_reps = repMax
         
-        returnStr = String(weightMax) + " x " + String(repMax) + " -- Total: " + String(volume)
+        returnStr = String(weightMax) + " x " + String(repMax) + " -- Total: " + String(volume) + " lbs"
         
         return returnStr
         
