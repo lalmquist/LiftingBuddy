@@ -165,6 +165,7 @@ class DetailDataController: UIViewController {
     func findBestSet (dataSet: [Int64]) -> String {
         
         var i = 0
+        var found = false
         var setVolume = [Int64]()
         
         while i < dataSet.count {
@@ -179,23 +180,23 @@ class DetailDataController: UIViewController {
         
         let maxVolume = setVolume.max()
         
-        print(maxVolume)
-        print(setVolume)
+//        print(maxVolume)
+//        print(setVolume)
         
         var j = 0
         var foundIndex = 0
         
         for items in setVolume {
             
-            if items == maxVolume {
+            if items == maxVolume && found == false {
                 print(items)
                 foundIndex = j
-                j = j + 1
-                
+                found = true
             }
+            j = j + 1
         }
         
-        print(foundIndex)
+//        print(foundIndex)
         
         let dataSetIndex = foundIndex * 2
 
