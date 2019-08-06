@@ -117,10 +117,13 @@ class DetailDataController: UIViewController {
     
     func getBestSetDate(findIndex: Int) -> String {
         
+//        print("start")
+        
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         var resultsDate = Date()
-        var index : Int64 = 0
+        var index = 0
+//        print("index1 \(index)")
         
         let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
         do {
@@ -138,9 +141,15 @@ class DetailDataController: UIViewController {
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return ""}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         
+//                        print(sortedSets)
+//                        print("index2 \(index)")
+                        
                         for _ in sortedSets {
+//                            print("index \(index)")
+//                            print("find \(findIndex)")
                             if index == findIndex {
                                 resultsDate = lifts.date!
+                                print(resultsDate)
                             }
                             
                             index = index + 1
@@ -176,7 +185,7 @@ class DetailDataController: UIViewController {
             i = i + 2
         }
         
-        print(dataSet)
+//        print(dataSet)
         
         let maxVolume = setVolume.max()
         
@@ -211,55 +220,57 @@ class DetailDataController: UIViewController {
     }
     
     func getHeavyWeightDate() -> String {
-        
+
         let context = CoreDataManager.shared.persistentContainer.viewContext
-        
+
         var resultsDate = Date()
         var found = false
-        
+
         let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
         do {
-            
+
             let workouts = try context.fetch(fetchRequest)
             let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
-            
+
             for lifts in sortedWorkouts {
-                
+
                 guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return ""}
-                
+
                 for exer in workoutExercises {
                     if exer.name == exerciseStr {
-                        
+
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return ""}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
-                        
+
                         for set in sortedSets {
                             if set.weight == max_weight && set.reps == max_reps && found == false {
                                 resultsDate = lifts.date!
                                 found = true
-                            
+
                             }
                         }
                     }
                 }
             }
-            
+
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
             return ""
         }
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         let formattedDatestring = dateFormatter.string(from: resultsDate)
-        
+
         return formattedDatestring
     }
-    
+
     func findMaxWeight (dataSet: [Int64]) -> String {
         
         var i = 0
         var j = 0
+//        var k = 0
+//        var found = false
         var returnStr = ""
         var weights = [Int64]()
         var reps = [Int64]()
@@ -282,6 +293,20 @@ class DetailDataController: UIViewController {
         }
         
         let repMax = reps.max() ?? 0
+
+//        print(dataSet)
+//
+//        while k < dataSet.count  {
+//
+//            if dataSet[k] == weightMax && dataSet[k+1] == repMax && found == false {
+//                weight_found_index = k
+//                print(weight_found_index)
+//
+//                found = true
+//            }
+//
+//            k = k + 2
+//        }
         
         let volume = weightMax * repMax
         
@@ -294,6 +319,7 @@ class DetailDataController: UIViewController {
         
     }
     
+
     private func setupUI() {
         
         
