@@ -17,7 +17,7 @@ extension UIViewController {
     }
     
     func setupDataButtonInNavBar(selector: Selector) {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Icon_31-512"), style: .plain, target: self, action: selector)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "data"), style: .plain, target: self, action: selector)
     }
     
     func setupCancelButton() {
