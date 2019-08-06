@@ -234,7 +234,7 @@ class DetailDataController: UIViewController {
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         
                         for set in sortedSets {
-                            if set.weight == max_weight && set.reps == max_reps && found == false{
+                            if set.weight == max_weight && set.reps == max_reps && found == false {
                                 resultsDate = lifts.date!
                                 found = true
                             
@@ -322,16 +322,16 @@ class DetailDataController: UIViewController {
         heavySetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         heavySetLabel.text = "Heaviest Weight Set:\n\(heavyWeightDate)\n\(heavySet)"
         
-        view.addSubview(heavySetLine)
-        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true
-        heavySetLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        heavySetLine.widthAnchor.constraint(equalToConstant: view.frame.width/1.1).isActive = true
-        heavySetLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        
-        view.addSubview(bestWorkoutLabel)
-        bestWorkoutLabel.topAnchor.constraint(equalTo: heavySetLine.bottomAnchor).isActive = true
-        bestWorkoutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bestWorkoutLabel.text = "Your best workout:\nDATA HERE"
+//        view.addSubview(heavySetLine)
+//        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true
+//        heavySetLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        heavySetLine.widthAnchor.constraint(equalToConstant: view.frame.width/1.1).isActive = true
+//        heavySetLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
+//
+//        view.addSubview(bestWorkoutLabel)
+//        bestWorkoutLabel.topAnchor.constraint(equalTo: heavySetLine.bottomAnchor).isActive = true
+//        bestWorkoutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        bestWorkoutLabel.text = "Your best workout:\nDATA HERE"
         
     }
     
