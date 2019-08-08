@@ -28,8 +28,6 @@ class DetailDataController: UIViewController {
         view.backgroundColor = .black
         navigationItem.title = exerciseStr
         
-        setupCancelButton()
-        
         setupUI()
         
     }
@@ -115,15 +113,61 @@ class DetailDataController: UIViewController {
         return results
     }
     
-    func getBestSetDate(findIndex: Int) -> String {
+    func getExerciseSetData() -> [Int64] {
         
-//        print("start")
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        var results = [Int64]()
+        var index : Int64 = 0
+        var indexDate = Date()
+        var indexKey : Int64 = 0
+        
+        let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
+        do {
+            
+            let workouts = try context.fetch(fetchRequest)
+            let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+            
+            for lifts in sortedWorkouts {
+                
+                guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return [0]}
+                
+                for exer in workoutExercises {
+                    if exer.name == exerciseStr {
+                        if lifts.date != indexDate {
+                            indexDate = lifts.date!
+                            index = index + 1
+                        }
+                        
+                        guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
+                        let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
+                        
+                        for items in sortedSets {
+                            results.append(items.weight)
+                            results.append(items.reps)
+                            
+                            indexKey = index * 1000
+                            results.append(indexKey)
+                        }
+                    }
+                }
+            }
+            
+        } catch let fetchErr {
+            print("Failed to fetch workouts:", fetchErr)
+            return results
+        }
+        
+        print(results)
+        return results
+    }
+    
+    func getBestSetDate(findIndex: Int) -> String {
         
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         var resultsDate = Date()
         var index = 0
-//        print("index1 \(index)")
         
         let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
         do {
@@ -141,15 +185,9 @@ class DetailDataController: UIViewController {
                         guard let lookUpSets = exer.set?.allObjects as? [Set] else { return ""}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         
-//                        print(sortedSets)
-//                        print("index2 \(index)")
-                        
                         for _ in sortedSets {
-//                            print("index \(index)")
-//                            print("find \(findIndex)")
                             if index == findIndex {
                                 resultsDate = lifts.date!
-                                print(resultsDate)
                             }
                             
                             index = index + 1
@@ -185,28 +223,20 @@ class DetailDataController: UIViewController {
             i = i + 2
         }
         
-//        print(dataSet)
-        
         let maxVolume = setVolume.max()
-        
-//        print(maxVolume)
-//        print(setVolume)
-        
+
         var j = 0
         var foundIndex = 0
         
         for items in setVolume {
             
             if items == maxVolume && found == false {
-                print(items)
                 foundIndex = j
                 found = true
             }
             j = j + 1
         }
-        
-//        print(foundIndex)
-        
+
         let dataSetIndex = foundIndex * 2
 
         let total = dataSet[dataSetIndex]*dataSet[dataSetIndex + 1]
@@ -269,8 +299,6 @@ class DetailDataController: UIViewController {
         
         var i = 0
         var j = 0
-//        var k = 0
-//        var found = false
         var returnStr = ""
         var weights = [Int64]()
         var reps = [Int64]()
@@ -294,20 +322,6 @@ class DetailDataController: UIViewController {
         
         let repMax = reps.max() ?? 0
 
-//        print(dataSet)
-//
-//        while k < dataSet.count  {
-//
-//            if dataSet[k] == weightMax && dataSet[k+1] == repMax && found == false {
-//                weight_found_index = k
-//                print(weight_found_index)
-//
-//                found = true
-//            }
-//
-//            k = k + 2
-//        }
-        
         let volume = weightMax * repMax
         
         max_weight = weightMax
@@ -347,6 +361,8 @@ class DetailDataController: UIViewController {
         heavySetLabel.topAnchor.constraint(equalTo: setLine.bottomAnchor).isActive = true
         heavySetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         heavySetLabel.text = "Heaviest Weight Set:\n\(heavyWeightDate)\n\(heavySet)"
+        
+        getExerciseSetData()
         
 //        view.addSubview(heavySetLine)
 //        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true

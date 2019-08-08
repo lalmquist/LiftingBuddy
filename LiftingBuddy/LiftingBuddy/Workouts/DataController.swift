@@ -114,10 +114,9 @@ class DataController: UITableViewController {
         let detailDataController = DetailDataController()
         
         detailDataController.exerciseStr = exerciseStr
-      
-        let navController = UINavigationController(rootViewController: detailDataController)
         
-        present(navController, animated: true, completion: nil)
+        navigationController?.pushViewController(detailDataController, animated: true)
+
     }
     
     private func setupUI() {
