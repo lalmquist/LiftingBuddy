@@ -9,9 +9,12 @@
 import UIKit
 import CoreData
 
-class DetailDataController: UIViewController {
+class DetailDataController: UIViewController, UIScrollViewDelegate {
     
     var exerciseStr: String?
+    
+    var scrollView: UIScrollView!
+    var containerView = UIView()
     
     var found_index: Int?
     
@@ -25,10 +28,27 @@ class DetailDataController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.scrollView = UIScrollView()
+        self.scrollView.delegate = self
+        self.scrollView.contentSize = CGSize(width: view.frame.width , height: view.frame.height*10)
+        
+        containerView = UIView()
+        
+        scrollView.addSubview(containerView)
+        view.addSubview(scrollView)
+        
         view.backgroundColor = .black
         navigationItem.title = exerciseStr
         
         setupUI()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        scrollView.frame = view.bounds
+        containerView.frame = CGRect(x: 0,y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         
     }
     
