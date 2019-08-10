@@ -56,7 +56,7 @@ class DetailDataController: UIViewController {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.numberOfLines = 3
+        label.numberOfLines = 99
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -113,14 +113,20 @@ class DetailDataController: UIViewController {
         return results
     }
     
-    func getExerciseSetData() -> [Int64] {
+    func getExerciseSetData() -> String {
         
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
-        var results = [Int64]()
-        var index : Int64 = 0
-        var indexDate = Date()
-        var indexKey : Int64 = 0
+        var currentMax : Int64 = 0
+        var maxIndex = 0
+        var currentDate = Date()
+        var returnDate = Date()
+        var index = 0
+        var index2 = 0
+        var i = 0
+        var workoutVolume : Int64 = 0
+        var maxWorkoutData = [Int64]()
+        var returnStr = ""
         
         let fetchRequest = NSFetchRequest<Workout>(entityName: "Workout")
         do {
@@ -130,36 +136,83 @@ class DetailDataController: UIViewController {
             
             for lifts in sortedWorkouts {
                 
-                guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return [0]}
+                guard let workoutExercises = lifts.exercise?.allObjects as? [Exercise] else { return ""}
                 
                 for exer in workoutExercises {
-                    if exer.name == exerciseStr {
-                        if lifts.date != indexDate {
-                            indexDate = lifts.date!
-                            index = index + 1
-                        }
-                        
-                        guard let lookUpSets = exer.set?.allObjects as? [Set] else { return [0]}
+                  if exer.name == exerciseStr {
+                    if lifts.date != currentDate {
+                        currentDate = lifts.date!
+                        index = index + 1
+                    }
+                        guard let lookUpSets = exer.set?.allObjects as? [Set] else { return ""}
                         let sortedSets = lookUpSets.sorted(by: {$0.index < $1.index})
                         
                         for items in sortedSets {
-                            results.append(items.weight)
-                            results.append(items.reps)
-                            
-                            indexKey = index * 1000
-                            results.append(indexKey)
-                        }
+                            workoutVolume = workoutVolume + (items.weight * items.reps)
+                    }
+                    
+                    if workoutVolume > currentMax {
+                        currentMax = workoutVolume
+                        maxIndex = index
+                        workoutVolume = 0
+                    }
+                    
                     }
                 }
             }
             
         } catch let fetchErr {
             print("Failed to fetch workouts:", fetchErr)
-            return results
+            return returnStr
         }
         
-        print(results)
-        return results
+        let fetchRequest2 = NSFetchRequest<Workout>(entityName: "Workout")
+        do {
+            
+            let workouts2 = try context.fetch(fetchRequest2)
+            let sortedWorkouts2 = workouts2.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+            
+            for lifts2 in sortedWorkouts2 {
+                
+                guard let workoutExercises2 = lifts2.exercise?.allObjects as? [Exercise] else { return ""}
+                
+                for exer2 in workoutExercises2 {
+                 if exer2.name == exerciseStr {
+                    index2 = index2 + 1
+                    if index2 == maxIndex {
+                        returnDate = lifts2.date!
+                        guard let lookUpSets2 = exer2.set?.allObjects as? [Set] else { return ""}
+                        let sortedSets2 = lookUpSets2.sorted(by: {$0.index < $1.index})
+                        
+                        for set in sortedSets2 {
+                            maxWorkoutData.append(set.weight)
+                            maxWorkoutData.append(set.reps)
+                            let volume = set.weight * set.reps
+                            maxWorkoutData.append(volume)
+                        }
+                    }
+                    }
+                }
+            }
+                
+            } catch let fetchErr {
+                print("Failed to fetch workouts:", fetchErr)
+                return returnStr
+            }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDatestring = dateFormatter.string(from: returnDate)
+        
+        returnStr = formattedDatestring + "\n" + "Total Volume -- \(currentMax) lbs\n"
+
+        while i < maxWorkoutData.count {
+            returnStr = returnStr + String(maxWorkoutData[i]) + " x " + String(maxWorkoutData[i+1]) + " -- " + String(maxWorkoutData[i+2]) + "\n"
+            i = i + 3
+        }
+        
+        print(returnStr)
+        return returnStr
     }
     
     func getBestSetDate(findIndex: Int) -> String {
@@ -362,18 +415,18 @@ class DetailDataController: UIViewController {
         heavySetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         heavySetLabel.text = "Heaviest Weight Set:\n\(heavyWeightDate)\n\(heavySet)"
         
-        getExerciseSetData()
+         let bestWorkoutString = getExerciseSetData()
         
-//        view.addSubview(heavySetLine)
-//        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true
-//        heavySetLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        heavySetLine.widthAnchor.constraint(equalToConstant: view.frame.width/1.1).isActive = true
-//        heavySetLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//
-//        view.addSubview(bestWorkoutLabel)
-//        bestWorkoutLabel.topAnchor.constraint(equalTo: heavySetLine.bottomAnchor).isActive = true
-//        bestWorkoutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        bestWorkoutLabel.text = "Your best workout:\nDATA HERE"
+        view.addSubview(heavySetLine)
+        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true
+        heavySetLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        heavySetLine.widthAnchor.constraint(equalToConstant: view.frame.width/1.1).isActive = true
+        heavySetLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
+
+        view.addSubview(bestWorkoutLabel)
+        bestWorkoutLabel.topAnchor.constraint(equalTo: heavySetLine.bottomAnchor).isActive = true
+        bestWorkoutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        bestWorkoutLabel.text = "Your best workout:\n\(bestWorkoutString)"
         
     }
     
