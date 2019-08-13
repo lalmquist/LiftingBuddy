@@ -5,6 +5,7 @@
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
 //
+
 import UIKit
 import CoreData
 
@@ -316,7 +317,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         do {
             try context.save()
-            // save succeeds
             
         } catch let err {
             print("Failed to update exercise:", err)
@@ -335,7 +335,6 @@ class SetController: UITableViewController, UITextFieldDelegate {
         
         do {
             try context.save()
-            // save succeeds
             
         } catch let err {
             print("Failed to update exercise:", err)
@@ -346,16 +345,13 @@ class SetController: UITableViewController, UITextFieldDelegate {
     func checkImprove() {
         
         let localvol = getVolume()
-        
-        //        print(localvol)
-        //        print(total_volume)
+
         if localvol >= total_volume ?? 9999 && total_volume != 0 {
             didImprove(exercise: exercise!, improved: true)
         } else {
             didImprove(exercise: exercise!, improved: false)
         }
         
-        //        print(exercise?.improved ?? false)
     }
     
     let totalVolume: UILabel = {

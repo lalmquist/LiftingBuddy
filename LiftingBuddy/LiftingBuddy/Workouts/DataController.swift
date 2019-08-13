@@ -48,7 +48,7 @@ class DataController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Your Exercises"
+        navigationItem.title = "Previous Exercises"
         
         setupCancelButton()
         
@@ -61,9 +61,7 @@ class DataController: UITableViewController {
         tableView.indicatorStyle = .white
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        
-        setupUI()
-    
+            
     }
     
     private func showError(title: String, message: String) {
@@ -79,14 +77,12 @@ class DataController: UITableViewController {
         cell.textLabel?.text = allExerciseNames[indexPath.row]
         cell.textLabel?.textColor = .white
         cell.backgroundColor = .black
-        //        cell.selectionStyle = .none
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        //        label.backgroundColor = .white
         return label
     }
     
@@ -118,10 +114,6 @@ class DataController: UITableViewController {
         navigationController?.pushViewController(detailDataController, animated: true)
 
     }
-    
-    private func setupUI() {
-        //        _ = setupLightBlueBackgroundView(height: 150)
-        
-    }
+
     
 }

@@ -9,11 +9,10 @@
 import UIKit
 import CoreData
 
-class DetailDataController: UIViewController, UIScrollViewDelegate {
+class DetailDataController: UIViewController {
     
     var exerciseStr: String?
-    
-    var scrollView: UIScrollView!
+
     var containerView = UIView()
     
     var found_index: Int?
@@ -28,14 +27,14 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.scrollView = UIScrollView()
-        self.scrollView.delegate = self
-        self.scrollView.contentSize = CGSize(width: view.frame.width , height: view.frame.height*10)
+        self.view.addSubview(scrollView)
         
-        containerView = UIView()
+        scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        scrollView.addSubview(containerView)
-        view.addSubview(scrollView)
+        scrollView.indicatorStyle = .white
         
         view.backgroundColor = .black
         navigationItem.title = exerciseStr
@@ -43,16 +42,47 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
         setupUI()
         
     }
+
+    let scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = .black
+        return v
+    }()
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        scrollView.frame = view.bounds
-        containerView.frame = CGRect(x: 0,y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
-        
-    }
+    let topItem: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let bottomItem: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let bestSetTitle: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.numberOfLines = 3
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let bestSetLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.numberOfLines = 3
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let heavySetTitle: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 30)
@@ -65,8 +95,17 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
     let heavySetLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.numberOfLines = 3
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let bestWorkoutTitle: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -75,7 +114,7 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
     let bestWorkoutLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.font = UIFont.boldSystemFont(ofSize: 25)
         label.numberOfLines = 99
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -152,7 +191,7 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
         do {
             
             let workouts = try context.fetch(fetchRequest)
-            let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+            let sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedAscending})
             
             for lifts in sortedWorkouts {
                 
@@ -171,13 +210,12 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
                             workoutVolume = workoutVolume + (items.weight * items.reps)
                     }
                     
-                    if workoutVolume > currentMax {
+                    if workoutVolume >= currentMax {
                         currentMax = workoutVolume
                         maxIndex = index
-                        workoutVolume = 0
                     }
-                    
                     }
+                    workoutVolume = 0
                 }
             }
             
@@ -190,7 +228,7 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
         do {
             
             let workouts2 = try context.fetch(fetchRequest2)
-            let sortedWorkouts2 = workouts2.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+            let sortedWorkouts2 = workouts2.sorted(by: {$0.date!.compare($1.date!) == .orderedAscending})
             
             for lifts2 in sortedWorkouts2 {
                 
@@ -231,7 +269,6 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
             i = i + 3
         }
         
-        print(returnStr)
         return returnStr
     }
     
@@ -409,44 +446,71 @@ class DetailDataController: UIViewController, UIScrollViewDelegate {
 
     private func setupUI() {
         
+        scrollView.addSubview(topItem)
+        topItem.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        topItem.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         
         let dataset = getExerciseData()
         let bestSet = findBestSet(dataSet: dataset)
         let bestSetDate = getBestSetDate(findIndex: found_index!)
 
-        view.addSubview(bestSetLabel)
-        bestSetLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        bestSetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.addSubview(bestSetTitle)
+        bestSetTitle.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        bestSetTitle.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        bestSetTitle.textAlignment = .center
+        bestSetTitle.text = "Best Set:"
+        
+        scrollView.addSubview(bestSetLabel)
+        bestSetLabel.topAnchor.constraint(equalTo: bestSetTitle.bottomAnchor).isActive = true
+        bestSetLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         bestSetLabel.textAlignment = .center
-        bestSetLabel.text = "Best Set:\n\(bestSetDate)\n\(bestSet)"
-        
-        view.addSubview(setLine)
+        bestSetLabel.text = "\(bestSetDate)\n\(bestSet)"
+
+        scrollView.addSubview(setLine)
         setLine.topAnchor.constraint(equalTo: bestSetLabel.bottomAnchor, constant: 5).isActive = true
-        setLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        setLine.widthAnchor.constraint(equalToConstant: view.frame.width/1.1).isActive = true
+        setLine.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 17).isActive = true
+        setLine.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        setLine.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -17).isActive = true
         setLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        
-        
+
+
         let heavySet = findMaxWeight(dataSet: dataset)
         let heavyWeightDate = getHeavyWeightDate()
         
-        view.addSubview(heavySetLabel)
-        heavySetLabel.topAnchor.constraint(equalTo: setLine.bottomAnchor).isActive = true
-        heavySetLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        heavySetLabel.text = "Heaviest Weight Set:\n\(heavyWeightDate)\n\(heavySet)"
-        
-         let bestWorkoutString = getExerciseSetData()
-        
-        view.addSubview(heavySetLine)
-        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true
-        heavySetLine.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        heavySetLine.widthAnchor.constraint(equalToConstant: view.frame.width/1.1).isActive = true
-        heavySetLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        scrollView.addSubview(heavySetTitle)
+        heavySetTitle.topAnchor.constraint(equalTo: setLine.bottomAnchor).isActive = true
+        heavySetTitle.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        heavySetTitle.text = "Heaviest Weight Set:"
 
-        view.addSubview(bestWorkoutLabel)
-        bestWorkoutLabel.topAnchor.constraint(equalTo: heavySetLine.bottomAnchor).isActive = true
-        bestWorkoutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bestWorkoutLabel.text = "Your best workout:\n\(bestWorkoutString)"
+        scrollView.addSubview(heavySetLabel)
+        heavySetLabel.topAnchor.constraint(equalTo: heavySetTitle.bottomAnchor).isActive = true
+        heavySetLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        heavySetLabel.text = "\(heavyWeightDate)\n\(heavySet)"
+
+        let bestWorkoutString = getExerciseSetData()
+
+        scrollView.addSubview(heavySetLine)
+        heavySetLine.topAnchor.constraint(equalTo: heavySetLabel.bottomAnchor, constant: 5).isActive = true
+        heavySetLine.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 17).isActive = true
+        heavySetLine.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        heavySetLine.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -17).isActive = true
+        heavySetLine.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
+        scrollView.addSubview(bestWorkoutTitle)
+        bestWorkoutTitle.topAnchor.constraint(equalTo: heavySetLine.bottomAnchor).isActive = true
+        bestWorkoutTitle.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        bestWorkoutTitle.text = "Best Volume Workout:"
+
+        scrollView.addSubview(bestWorkoutLabel)
+        bestWorkoutLabel.topAnchor.constraint(equalTo: bestWorkoutTitle.bottomAnchor).isActive = true
+        bestWorkoutLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        bestWorkoutLabel.text = "\(bestWorkoutString)"
+        
+        scrollView.addSubview(bottomItem)
+        bottomItem.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        bottomItem.topAnchor.constraint(equalTo: bestWorkoutLabel.bottomAnchor).isActive = true
+        bottomItem.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
+        bottomItem.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         
     }
     

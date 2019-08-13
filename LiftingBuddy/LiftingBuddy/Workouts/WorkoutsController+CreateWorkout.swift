@@ -4,14 +4,13 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//a
+//
 
 import UIKit
 
 extension WorkoutsController: CreateWorkoutControllerDelegate {
     
     func didEditWorkout(workout: Workout) {
-        // update my tableview somehow
         let row = workouts.firstIndex(of: workout)
         let reloadIndexPath = IndexPath(row: row!, section: 0)
         tableView.reloadRows(at: [reloadIndexPath], with: .middle)
@@ -26,7 +25,5 @@ extension WorkoutsController: CreateWorkoutControllerDelegate {
         tableView.reloadData()
         workouts = self.workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
     }
-    
-    // specify your extension methods here....
-    
+
 }

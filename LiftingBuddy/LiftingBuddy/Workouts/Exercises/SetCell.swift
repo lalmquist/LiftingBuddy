@@ -18,7 +18,6 @@ class SetCell: UITableViewCell {
     
     let nameFoundedDateLabel: UILabel = {
         let label = UILabel()
-//                label.text = "WORKOUT NAME"
         label.font = UIFont.boldSystemFont(ofSize: 35)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false

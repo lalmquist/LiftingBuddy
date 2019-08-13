@@ -98,8 +98,6 @@ class WorkoutCell: UITableViewCell {
         addSubview(NumExercisesLabel)
         NumExercisesLabel.leftAnchor.constraint(equalTo: nameFoundedDateLabel.leftAnchor).isActive = true
         NumExercisesLabel.topAnchor.constraint(equalTo: nameFoundedDateLabel.bottomAnchor, constant: -45).isActive = true
-//        NumExercisesLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//        NumExercisesLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         addSubview(improvedLabel)
         improvedLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true

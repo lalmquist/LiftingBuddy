@@ -4,7 +4,7 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//a
+//
 
 import UIKit
 import CoreData
@@ -34,9 +34,9 @@ class CreateExerciseController: UITableViewController {
                 for exer in workoutExercises {
                     
                     if (allExerciseNames.contains(exer.name ?? "")) {
-//                        print("none")
+
                     } else {
-//                        print(exer.name!)
+
                         allExerciseNames.append(exer.name ?? "")
                     }
                 }
@@ -44,7 +44,7 @@ class CreateExerciseController: UITableViewController {
         } catch let fetchErr {
             print("Failed to fetch exercises:", fetchErr)
         }
-//        print(allExerciseNames.count)
+
     }
     
     let nameLabel: UILabel = {
@@ -66,7 +66,7 @@ class CreateExerciseController: UITableViewController {
     
     let quickLabel: UILabel = {
         let label = UILabel()
-        label.text = "  Your Previous Exercises:"
+        label.text = "  Previous Exercises:"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
@@ -105,13 +105,9 @@ class CreateExerciseController: UITableViewController {
         let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, inpIndex: 0, workout: workout)
         
         if let error = tuple.1 {
-            // is where you present an error modal of some kind
-            // perhaps use a UIAlertController to show your error message
             print(error)
         } else {
-            // creation success
             dismiss(animated: true, completion: {
-                // we'll call the delegate somehow
                 self.delegate?.didAddExercise(exercise: tuple.0!)
             })
         }
@@ -136,7 +132,6 @@ class CreateExerciseController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-//        label.backgroundColor = .white
         return label
     }
     

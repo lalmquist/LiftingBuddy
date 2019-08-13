@@ -4,7 +4,7 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//a
+//
 
 import UIKit
 import CoreData
@@ -12,8 +12,7 @@ import CoreData
 extension WorkoutsController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        sortedWorkouts = workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
+
         let workout = workouts[indexPath.row]
         let exercisesController = ExercisesController()
         exercisesController.workout = workout
@@ -94,9 +93,7 @@ extension WorkoutsController {
         allExercises.sort {
             $0.index < $1.index
         }
-        
-//        print(allExercises)
-        
+
         for lifts in allExercises {
             print(lifts.index)
             let exerciseName = lifts.name ?? "nil"
@@ -104,14 +101,10 @@ extension WorkoutsController {
             let tuple = CoreDataManager.shared.createExercise(exerciseName: exerciseName, inpIndex: lifts.index, workout: workout as! Workout)
 
                 if let error = tuple.1 {
-                    // is where you present an error modal of some kind
-                    // perhaps use a UIAlertController to show your error message
                     print(error)
                 } else {
-//                    print("no error")
                 }
         }
-        // perform the save
         do {
             try context.save()
             didAddWorkout(workout: workout as! Workout)
@@ -133,16 +126,6 @@ extension WorkoutsController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return workouts.count == 0 ? 150 : 0
     }
-    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UIView()
-//        view.backgroundColor = .lightBlue
-//        return view
-//    }
-    
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 50
-//    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! WorkoutCell

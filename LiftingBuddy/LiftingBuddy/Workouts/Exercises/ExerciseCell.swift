@@ -37,20 +37,16 @@ class ExerciseCell: UITableViewCell {
     
     let nameFoundedDateLabel: UILabel = {
         let label = UILabel()
-//        label.text = "WORKOUT NAME"
         label.font = UIFont.boldSystemFont(ofSize: 32)
         label.textColor = .white
-//        label.backgroundColor = .yellow
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let setLabel: UILabel = {
         let label = UILabel()
-//        label.text = "WORKOUT NAME"
         label.font = UIFont.boldSystemFont(ofSize: 25)
         label.textColor = .white
-//        label.backgroundColor = .yellow
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

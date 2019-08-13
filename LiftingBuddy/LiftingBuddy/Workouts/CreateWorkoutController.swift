@@ -4,12 +4,10 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//a
+//
 
 import UIKit
 import CoreData
-
-// Custom Delegation
 
 protocol CreateWorkoutControllerDelegate {
     func didAddWorkout(workout: Workout)
@@ -61,7 +59,6 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // ternary syntax
         navigationItem.title = workout == nil ? "Create Workout" : "Edit Workout"
     }
     
@@ -94,7 +91,6 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         do {
             try context.save()
             
-            // save succeeded
             dismiss(animated: true, completion: {
                 self.delegate?.didEditWorkout(workout: self.workout!)
             })
@@ -113,11 +109,9 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         workout.setValue(nameTextField.text, forKey: "name")
         workout.setValue(datePicker.date, forKey: "date")
         
-        // perform the save
         do {
             try context.save()
             
-            // success
             dismiss(animated: true, completion: {
                 self.delegate?.didAddWorkout(workout: workout as! Workout)
             })
@@ -128,7 +122,6 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
     }
     
     private func setupUI() {
-        let lightBlueBackgroundView = setupLightBlueBackgroundView(height: 350)
         
         view.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -141,23 +134,12 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        
-        // setup the date picker here
-        
+
         view.addSubview(datePicker)
         datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         datePicker.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         datePicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
+
     }
     
 }
-
-
-
-
-
-
-
-
-

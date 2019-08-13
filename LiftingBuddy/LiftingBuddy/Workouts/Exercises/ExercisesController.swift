@@ -4,18 +4,17 @@
 //
 //  Created by Logman on 6/2/19.
 //  Copyright © 2019 Logman. All rights reserved.
-//a
+//
 
 import UIKit
 import CoreData
 
-// lets create a UILabel subclass for custom text drawing
 class IndentedLabel: UILabel {
     
     override func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
-        let customRect = rect.inset(by: insets)
-        super.drawText(in: customRect)
+        let inset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+        let Rect = rect.inset(by: inset)
+        super.drawText(in: Rect)
     }
     
 }
@@ -57,7 +56,6 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         
         do {
             try context.save()
-            // save succeeds
             
         } catch let err {
             print("Failed to update exercise:", err)
@@ -87,13 +85,12 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         return allExercises.count
     }
     
-    let cellId = "cellllllllllllId"
+    let cellId = "cell_Id"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchExercises()
-//        self.allExercises = CoreDataManager.shared.fetchExercises()
         
         tableView.backgroundColor = UIColor.black
         
@@ -166,9 +163,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
             print(indexPath.row)
             self.allExercises.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .middle)
-//            self.tableView.deleteSections([indexPath.section], with: .automatic)
-            
-            // delete the company from Core Data
+
             let context = CoreDataManager.shared.persistentContainer.viewContext
             
             context.delete(exercise)
