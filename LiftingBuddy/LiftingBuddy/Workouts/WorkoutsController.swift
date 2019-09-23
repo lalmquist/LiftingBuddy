@@ -39,6 +39,15 @@ class WorkoutsController: UITableViewController {
         workouts = self.workouts.sorted(by: {$0.date!.compare($1.date!) == .orderedDescending})
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        return label
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+    
     
     @objc func handleAddExercise() {
         print("Adding exercise..")
