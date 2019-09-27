@@ -49,6 +49,7 @@ class DataController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Previous Exercises"
+        UINavigationBar.appearance().barTintColor = .darkPurple
         
         setupCancelButton()
         

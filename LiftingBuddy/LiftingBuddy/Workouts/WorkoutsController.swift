@@ -21,6 +21,7 @@ class WorkoutsController: UITableViewController {
         view.backgroundColor = .white
         
         navigationItem.title = "Workouts"
+        UINavigationBar.appearance().barTintColor = .darkPurple
         
         tableView.backgroundColor = UIColor.black
         tableView.separatorColor = .white

@@ -69,6 +69,8 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         
         setupCancelButton()
         
+        UINavigationBar.appearance().barTintColor = .darkPurple
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         
         view.backgroundColor = UIColor.black

@@ -29,6 +29,8 @@ class DetailDataController: UIViewController {
         
         self.view.addSubview(scrollView)
         
+        
+        UINavigationBar.appearance().barTintColor = .darkPurple
         scrollView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         scrollView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true

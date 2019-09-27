@@ -81,6 +81,8 @@ class CreateExerciseController: UITableViewController {
         
         navigationItem.title = "Create Exercise"
         
+        UINavigationBar.appearance().barTintColor = .darkPurple
+        
         setupCancelButton()
         
         getAllExercises()

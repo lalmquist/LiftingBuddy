@@ -92,6 +92,8 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         
         fetchExercises()
         
+        UINavigationBar.appearance().barTintColor = .darkPurple
+        
         tableView.backgroundColor = UIColor.black
         
         tableView.indicatorStyle = .white
