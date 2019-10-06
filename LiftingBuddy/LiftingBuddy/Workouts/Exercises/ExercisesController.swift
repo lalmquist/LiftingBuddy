@@ -92,7 +92,7 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         
         fetchExercises()
         
-        UINavigationBar.appearance().barTintColor = .darkPurple
+        navigationController?.navigationBar.backgroundColor = .darkPurple
         
         tableView.backgroundColor = UIColor.black
         

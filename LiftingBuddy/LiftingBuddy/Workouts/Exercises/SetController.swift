@@ -39,7 +39,7 @@ class SetController: UITableViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         view.addGestureRecognizer(swipe)
         
-        UINavigationBar.appearance().barTintColor = .darkPurple
+        navigationController?.navigationBar.backgroundColor = .darkPurple
         
         weightTextField.keyboardType = UIKeyboardType.numberPad
         
