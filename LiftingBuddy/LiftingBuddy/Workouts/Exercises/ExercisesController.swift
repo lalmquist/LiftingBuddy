@@ -98,6 +98,8 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         
         tableView.indicatorStyle = .white
         
+        tableView.separatorColor = .white
+        
         tableView.register(ExerciseCell.self, forCellReuseIdentifier: cellId)
         
         setupPlusButtonInNavBar(selector: #selector(handleAdd))
@@ -105,14 +107,16 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         let tap: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(editCells))
         
         view.addGestureRecognizer(tap)
-
+        
     }
     
     @objc func editCells() {
+        
         self.tableView.isEditing = true
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+
         return .none
     }
 

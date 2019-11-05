@@ -52,6 +52,7 @@ class CreateWorkoutController: UIViewController, UINavigationControllerDelegate,
         let dp = UIDatePicker()
         dp.backgroundColor = .white
         dp.datePickerMode = .dateAndTime
+        dp.setValue(UIColor.black, forKeyPath: "textColor")
         dp.translatesAutoresizingMaskIntoConstraints = false
         return dp
     }()

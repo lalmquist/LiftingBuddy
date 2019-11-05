@@ -28,12 +28,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = .darkPurple
-        UINavigationBar.appearance().prefersLargeTitles = true
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        if #available(iOS 13.0, *) {
+            let colorAppearance = UINavigationBarAppearance()
+            colorAppearance.configureWithOpaqueBackground()
+            colorAppearance.backgroundColor = .darkPurple
+            colorAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            colorAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+            
+            UINavigationBar.appearance().standardAppearance = colorAppearance
+            UINavigationBar.appearance().scrollEdgeAppearance = colorAppearance
+            UINavigationBar.appearance().tintColor = .white
+            UINavigationBar.appearance().prefersLargeTitles = true
+            UINavigationBar.appearance().isTranslucent = false
+            
+        } else {
+            UINavigationBar.appearance().tintColor = .white
+            UINavigationBar.appearance().isTranslucent = false
+            UINavigationBar.appearance().barTintColor = .darkPurple
+            UINavigationBar.appearance().prefersLargeTitles = true
+            UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            
+        }
+  
         
         window = UIWindow()
         window?.makeKeyAndVisible()

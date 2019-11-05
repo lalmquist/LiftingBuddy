@@ -68,6 +68,7 @@ class CreateExerciseController: UITableViewController {
         let label = UILabel()
         label.text = "  Previous Exercises:"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
     }()

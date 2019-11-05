@@ -61,6 +61,8 @@ class DataController: UITableViewController {
         
         tableView.indicatorStyle = .white
         
+
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
             
     }

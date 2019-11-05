@@ -18,11 +18,13 @@ class WorkoutsController: UITableViewController {
         
         self.workouts = CoreDataManager.shared.fetchWorkouts()
         
+
+    
+        
         view.backgroundColor = .white
         
         navigationItem.title = "Workouts"
-        navigationController?.navigationBar.backgroundColor = .darkPurple
-        
+    
         tableView.backgroundColor = UIColor.black
         tableView.separatorColor = .white
         tableView.tableFooterView = UIView()

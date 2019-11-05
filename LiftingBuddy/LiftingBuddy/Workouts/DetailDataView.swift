@@ -38,6 +38,7 @@ class DetailDataController: UIViewController {
         
         scrollView.indicatorStyle = .white
         
+        
         view.backgroundColor = .black
         navigationItem.title = exerciseStr
         
@@ -49,6 +50,7 @@ class DetailDataController: UIViewController {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = .black
+        
         return v
     }()
     

@@ -52,6 +52,8 @@ class SetController: UITableViewController, UITextFieldDelegate {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
         tableView.indicatorStyle = .white
+        tableView.separatorColor = .white
+        
         
         repsTextField.delegate = self
         
