@@ -111,7 +111,13 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
     }
     
     @objc func editCells() {
+        tableView.backgroundColor = UIColor.gray
+        let cells = tableView.visibleCells
         
+        for cell in cells {
+            cell.backgroundColor = UIColor.gray
+        }
+
         self.tableView.isEditing = true
     }
     
@@ -131,6 +137,14 @@ class ExercisesController: UITableViewController, CreateExerciseControllerDelega
         updateExerciseIndex(exercise: self.allExercises[sourceIndexPath.row], intIndex: Int16(destinationIndexPath.row))
         print(destinationIndexPath.row)
         self.tableView.isEditing = false
+        
+        tableView.backgroundColor = UIColor.black
+        let cells = tableView.visibleCells
+        
+        for cell in cells {
+            cell.backgroundColor = UIColor.black
+        }
+        
         tableView.reloadData()
     }
     
