@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:LiftingBuddy.xcodeproj">
+      location = "self:/Users/Logan/Documents/GitHub/LiftingBuddy/LiftingBuddy/Lift-Buddy.xcodeproj">
    </FileRef>
 </Workspace>

@@ -168,7 +168,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CEEC901B22A4B3C100D92AA7 /* Build configuration list for PBXProject "LiftingBuddy" */;
+			buildConfigurationList = CEEC901B22A4B3C100D92AA7 /* Build configuration list for PBXProject "Lift-Buddy" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -367,7 +367,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.58;
+				CURRENT_PROJECT_VERSION = 0.59;
 				DEVELOPMENT_TEAM = JFZD372V87;
 				INFOPLIST_FILE = LiftingBuddy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -375,8 +375,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = "logman.Lift-Buddy";
+				MARKETING_VERSION = 0.17;
+				PRODUCT_BUNDLE_IDENTIFIER = logman.LiftingBuddy;
 				PRODUCT_NAME = "Lift-Buddy";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -388,7 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.58;
+				CURRENT_PROJECT_VERSION = 0.59;
 				DEVELOPMENT_TEAM = JFZD372V87;
 				INFOPLIST_FILE = LiftingBuddy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -396,8 +396,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = "logman.Lift-Buddy";
+				MARKETING_VERSION = 0.17;
+				PRODUCT_BUNDLE_IDENTIFIER = logman.LiftingBuddy;
 				PRODUCT_NAME = "Lift-Buddy";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -407,7 +407,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CEEC901B22A4B3C100D92AA7 /* Build configuration list for PBXProject "LiftingBuddy" */ = {
+		CEEC901B22A4B3C100D92AA7 /* Build configuration list for PBXProject "Lift-Buddy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEEC903022A4B3C300D92AA7 /* Debug */,
