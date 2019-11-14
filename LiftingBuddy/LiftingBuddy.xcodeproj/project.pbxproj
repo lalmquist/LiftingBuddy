@@ -34,7 +34,7 @@
 		CE6A578E22F13D0900A7B659 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CE6A579022F13F6400A7B659 /* DetailDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataView.swift; sourceTree = "<group>"; };
 		CE830D6F22B7039B00A85D25 /* ExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
-		CEEC902022A4B3C100D92AA7 /* LiftingBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftingBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEEC902022A4B3C100D92AA7 /* Lift-Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lift-Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEEC902322A4B3C100D92AA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEEC902822A4B3C100D92AA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEEC902A22A4B3C300D92AA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		CEEC902122A4B3C100D92AA7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CEEC902022A4B3C100D92AA7 /* LiftingBuddy.app */,
+				CEEC902022A4B3C100D92AA7 /* Lift-Buddy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,9 +136,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CEEC901F22A4B3C100D92AA7 /* LiftingBuddy */ = {
+		CEEC901F22A4B3C100D92AA7 /* Lift-Buddy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CEEC903222A4B3C300D92AA7 /* Build configuration list for PBXNativeTarget "LiftingBuddy" */;
+			buildConfigurationList = CEEC903222A4B3C300D92AA7 /* Build configuration list for PBXNativeTarget "Lift-Buddy" */;
 			buildPhases = (
 				CEEC901C22A4B3C100D92AA7 /* Sources */,
 				CEEC901D22A4B3C100D92AA7 /* Frameworks */,
@@ -148,9 +148,9 @@
 			);
 			dependencies = (
 			);
-			name = LiftingBuddy;
+			name = "Lift-Buddy";
 			productName = LiftingBuddy;
-			productReference = CEEC902022A4B3C100D92AA7 /* LiftingBuddy.app */;
+			productReference = CEEC902022A4B3C100D92AA7 /* Lift-Buddy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -181,7 +181,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CEEC901F22A4B3C100D92AA7 /* LiftingBuddy */,
+				CEEC901F22A4B3C100D92AA7 /* Lift-Buddy */,
 			);
 		};
 /* End PBXProject section */
@@ -367,17 +367,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.56;
+				CURRENT_PROJECT_VERSION = 0.58;
 				DEVELOPMENT_TEAM = JFZD372V87;
 				INFOPLIST_FILE = LiftingBuddy/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = logman.LiftingBuddy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "logman.Lift-Buddy";
+				PRODUCT_NAME = "Lift-Buddy";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -388,17 +388,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.56;
+				CURRENT_PROJECT_VERSION = 0.58;
 				DEVELOPMENT_TEAM = JFZD372V87;
 				INFOPLIST_FILE = LiftingBuddy/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.16;
-				PRODUCT_BUNDLE_IDENTIFIER = logman.LiftingBuddy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "logman.Lift-Buddy";
+				PRODUCT_NAME = "Lift-Buddy";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -416,7 +416,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CEEC903222A4B3C300D92AA7 /* Build configuration list for PBXNativeTarget "LiftingBuddy" */ = {
+		CEEC903222A4B3C300D92AA7 /* Build configuration list for PBXNativeTarget "Lift-Buddy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEEC903322A4B3C300D92AA7 /* Debug */,
